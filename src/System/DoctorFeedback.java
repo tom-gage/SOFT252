@@ -5,15 +5,19 @@
  */
 package System;
 
+import Users.typeInterface;
+
 /**
  *
  * @author Tom
  */
-public class DoctorFeedback {
+public class DoctorFeedback implements typeInterface{
+
+    private final String classType = "DoctorFeedback";
     private String doctorId, feedbackNotes;
     private int rating;
-    
-    public DoctorFeedback(String doctorId, String feedbackNotes, int rating){
+
+    public DoctorFeedback(String doctorId, String feedbackNotes, int rating) {
         this.doctorId = doctorId;
         this.feedbackNotes = feedbackNotes;
         this.rating = rating;

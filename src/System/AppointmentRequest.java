@@ -5,26 +5,28 @@
  */
 package System;
 
+import Users.typeInterface;
+import java.util.Date;
+
 /**
  *
  * @author Tom
  */
-import Users.typeInterface;
-import java.util.*;
+public class AppointmentRequest implements typeInterface{
 
-public class Appointment implements typeInterface{
+    private final String classType = "appointmentRequest";
 
-    private final String classType = "Appointment";
     private String doctorId, patientId;
     private Date appointmentDate;
+    private boolean approved = false;
 
-    public Appointment(String doctorId, String patientId, Date appointmentDate) {
+    public AppointmentRequest(String doctorId, String patientId, Date appointmentDate) {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.appointmentDate = appointmentDate;
     }
 
-    public Appointment(String doctorId, String patientId) {
+    public AppointmentRequest(String doctorId, String patientId) {
         this.doctorId = doctorId;
         this.patientId = patientId;
     }

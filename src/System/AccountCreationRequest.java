@@ -11,12 +11,13 @@ import Users.typeInterface;
  *
  * @author Tom
  */
-public class Medicine implements typeInterface{
+public class AccountCreationRequest implements typeInterface{
 
-    private final String classType = "Medicine";
-    private String name;
+    private final String classType = "AccountCreationRequest";
+    private String name, address;
 
-    public Medicine(String name) {
+    public AccountCreationRequest(String name, String Address) {
         this.name = name;
+        this.address = address;
     }
 }

@@ -1,0 +1,67 @@
+[[{
+            "classType": "Administrator",
+            "userId": "0001",
+            "name": "Jim",
+            "address": "Jims house"
+        }], [{
+            "classType": "Doctor",
+            "userId": "0001",
+            "name": "Jim",
+            "address": "Jims house",
+            "futureAppointments": [{
+                    "classType": "Appointment",
+                    "doctorId": "testDoctorId",
+                    "patientId": "testPatientId"
+                }],
+            "pastAppointments": [{
+                    "classType": "Appointment",
+                    "doctorId": "testDoctorId",
+                    "patientId": "testPatientId"
+                }]
+        }], [{
+            "classType": "Patient",
+            "userId": "0001",
+            "name": "Jim",
+            "address": "Jims house",
+            "sex": "Male",
+            "age": 10,
+            "appointmentHistory": [{
+                    "classType": "Appointment",
+                    "doctorId": "testDoctorId",
+                    "patientId": "testPatientId"
+                }],
+            "prescriptions": [{
+                    "classType": "Prescription",
+                    "doctorId": "testDocId",
+                    "patientId": "testPatientId",
+                    "doctorNotes": "notes: fuck this",
+                    "medicine": {
+                        "classType": "Medicine",
+                        "name": "paracetemol"
+                    },
+                    "quantity": 100,
+                    "dosage": 100
+                }]
+        }], [{
+            "classType": "Secretary",
+            "userId": "0001",
+            "name": "Jim",
+            "address": "Jims house",
+            "appointmentRequests": [{
+                    "classType": "appointmentRequest",
+                    "doctorId": "testDoctorId",
+                    "patientId": "testPatientId",
+                    "approved": false
+                }],
+            "accountCreationRequests": [{
+                    "classType": "AccountCreationRequest",
+                    "name": "testName"
+                }],
+            "accountDeletionRequests": [{
+                    "classType": "AccountDeletionRequest",
+                    "userId": "userId:0001"
+                }]
+        }], [{
+            "classType": "Medicine",
+            "name": "paracetemol"
+        }]]
