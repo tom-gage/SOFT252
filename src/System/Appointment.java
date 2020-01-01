@@ -9,8 +9,8 @@ package System;
  *
  * @author Tom
  */
-import Users.typeInterface;
 import java.util.*;
+import Users.typeInterface;
 
 public class Appointment implements typeInterface{
 

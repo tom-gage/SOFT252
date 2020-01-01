@@ -5,18 +5,49 @@
  */
 package System;
 
+import Users.IUser;
 import Users.typeInterface;
 
 /**
  *
  * @author Tom
  */
-public class Medicine implements typeInterface{
+public class Medicine implements typeInterface, IUser{
 
     private final String classType = "Medicine";
     private String name;
 
     public Medicine(String name) {
         this.name = name;
+    }
+    
+        @Override
+    public String getClassType(){
+        return classType;
+    }
+    
+    @Override
+    public String getUserId() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getAddress() {
+        return null;
+    }
+    
+    @Override
+    public String getUserName() {
+        return null;
+    }
+    
+    @Override
+    public String getPassword() {
+        return null;
     }
 }

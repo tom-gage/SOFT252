@@ -14,10 +14,15 @@ import Users.typeInterface;
 public class AccountCreationRequest implements typeInterface{
 
     private final String classType = "AccountCreationRequest";
-    private String name, address;
+    private String name, address, username, password, sex;
+    private int age;
 
-    public AccountCreationRequest(String name, String Address) {
+    public AccountCreationRequest(String name, String Address, String username, String password, int age, String sex) {
         this.name = name;
         this.address = address;
+        this.username =username;
+        this.password = password;
+        this.age = age;
+        this.sex = sex;
     }
 }

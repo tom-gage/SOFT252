@@ -10,5 +10,10 @@ package Users;
  * @author Tom
  */
 public interface IUser {
-    
+    public String getClassType();
+    public String getUserId();
+    public String getName();
+    public String getAddress();
+    public String getUserName();
+    public String getPassword();
 }

@@ -7,9 +7,9 @@ package DataHandler;
 
 import System.*;
 import Users.*;
-import Users.typeInterface;
 import com.google.gson.*;
 import java.lang.reflect.Type;
+import Users.typeInterface;
 
 /**
  *
@@ -20,7 +20,7 @@ public class TypeDeserializer implements JsonDeserializer<typeInterface> {
     @Override
     public typeInterface deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonArray jArray = (JsonArray) json;
-//        System.out.println(jArray);
+        System.out.println(jArray);
         JsonObject jObject = (JsonObject) jArray.get(0);
 //        System.out.println(jObject);
         JsonElement typeObj = jObject.get("classType");

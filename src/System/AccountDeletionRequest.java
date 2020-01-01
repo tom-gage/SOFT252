@@ -14,9 +14,9 @@ import Users.typeInterface;
 public class AccountDeletionRequest implements typeInterface{
 
     private final String classType = "AccountDeletionRequest";
-    private String userId;
+    private String username;
 
-    public AccountDeletionRequest(String userId) {
-        this.userId = userId;
+    public AccountDeletionRequest(String username) {
+        this.username = username;
     }
 }

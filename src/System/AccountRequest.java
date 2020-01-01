@@ -5,11 +5,13 @@
  */
 package System;
 
+import Users.typeInterface;
+
 /**
  *
  * @author Tom
  */
-public class AccountRequest {
+public class AccountRequest implements typeInterface{
     private String name, address;
     
     public AccountRequest(String name, String Address){

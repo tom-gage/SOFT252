@@ -13,10 +13,10 @@ package Users;
 import System.*;
 
 public abstract class User {
-//    private final String classType = "User";
+//    private String classType = "User";
 //    private String userId, name, address;
 //    private String userId = null;
 //    private String name = null;
 //    private String address = null;
-//    
+    
 }
