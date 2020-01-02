@@ -11,7 +11,10 @@ import Users.Doctor;
 import Users.Secretary;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -24,22 +27,25 @@ public class AdminScreen extends javax.swing.JFrame {
     ArrayList<Secretary> secretaryArray;
 
     public AdminScreen() throws IOException {
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
 
         this.dataArray = DataHandler.readUserData();
         this.doctorArray = (ArrayList<Doctor>) dataArray.get(1);
         this.secretaryArray = (ArrayList<Secretary>) dataArray.get(3);
 
+        refreshLists();
+    }
+
+    private void refreshLists() {
         DefaultListModel<String> doctorListModel = new DefaultListModel();
         DefaultListModel<String> secretaryListModel = new DefaultListModel();
 
         lstDoctors.setModel(doctorListModel);
         lstSecretarys.setModel(secretaryListModel);
 
-
         updateDoctorList(doctorListModel);
         updateSecretaryList(secretaryListModel);
-
     }
 
     private void updateDoctorList(DefaultListModel model) {
@@ -56,6 +62,18 @@ public class AdminScreen extends javax.swing.JFrame {
             Secretary secretary = secretaryArray.get(i);
             model.addElement(secretary.getName());
         }
+    }
+
+    private void deleteDoctor() {
+        int selectedDoctor = lstDoctors.getSelectedIndex();
+        doctorArray.remove(selectedDoctor);
+        refreshLists();
+    }
+
+    private void deleteSecretary() {
+        int selectedSecretary = lstSecretarys.getSelectedIndex();
+        secretaryArray.remove(selectedSecretary);
+        refreshLists();
     }
 
     /**
@@ -80,6 +98,7 @@ public class AdminScreen extends javax.swing.JFrame {
         btnSetFeedback = new javax.swing.JButton();
         btnCreateSecretary = new javax.swing.JButton();
         btnDeleteSecretary = new javax.swing.JButton();
+        btnViewDoctor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,10 +126,32 @@ public class AdminScreen extends javax.swing.JFrame {
         });
 
         btnSetFeedback.setText("Provide Feedback");
+        btnSetFeedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSetFeedbackActionPerformed(evt);
+            }
+        });
 
         btnCreateSecretary.setText("Create New Secretary");
+        btnCreateSecretary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateSecretaryActionPerformed(evt);
+            }
+        });
 
         btnDeleteSecretary.setText("Delete Secretary");
+        btnDeleteSecretary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteSecretaryActionPerformed(evt);
+            }
+        });
+
+        btnViewDoctor.setText("View Doctor Details");
+        btnViewDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDoctorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +173,10 @@ public class AdminScreen extends javax.swing.JFrame {
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCreateSecretary)
                             .addComponent(btnDeleteSecretary))
-                        .addGap(647, 647, 647))))
+                        .addGap(647, 647, 647))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnViewDoctor)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,20 +195,49 @@ public class AdminScreen extends javax.swing.JFrame {
                     .addComponent(btnDeleteDoctor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSetFeedback)
-                .addGap(81, 81, 81))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnViewDoctor)
+                .addGap(43, 43, 43))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateDoctorActionPerformed
-
+        new CreateNewDoctorScreen().setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_btnCreateDoctorActionPerformed
 
     private void btnDeleteDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteDoctorActionPerformed
-        AdminHandler.deleteUser();
-        
+        deleteDoctor();
+
     }//GEN-LAST:event_btnDeleteDoctorActionPerformed
+
+    private void btnCreateSecretaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateSecretaryActionPerformed
+        new CreateNewSecretaryScreen().setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_btnCreateSecretaryActionPerformed
+
+    private void btnDeleteSecretaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSecretaryActionPerformed
+        deleteSecretary();
+    }//GEN-LAST:event_btnDeleteSecretaryActionPerformed
+
+    private void btnViewDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDoctorActionPerformed
+        int selectedDoctor = lstDoctors.getSelectedIndex();
+        Doctor doctor = doctorArray.get(selectedDoctor);
+        new ViewDoctorScreen(doctor).setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_btnViewDoctorActionPerformed
+
+    private void btnSetFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetFeedbackActionPerformed
+        setVisible(false);
+        try {
+            new ProvideDoctorFeedBackScreen().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(AdminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_btnSetFeedbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,6 +280,7 @@ public class AdminScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteDoctor;
     private javax.swing.JButton btnDeleteSecretary;
     private javax.swing.JButton btnSetFeedback;
+    private javax.swing.JButton btnViewDoctor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList<String> lstDoctors;

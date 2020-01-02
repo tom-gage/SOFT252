@@ -5,7 +5,8 @@
  */
 package Users;
 
-import System.*;
+import SystemObjects.Appointment;
+import SystemObjects.AccountCreationRequest;
 import java.util.*;
 
 /**

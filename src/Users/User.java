@@ -10,7 +10,6 @@ package Users;
  *
  * @author Tom
  */
-import System.*;
 
 public abstract class User {
 //    private String classType = "User";

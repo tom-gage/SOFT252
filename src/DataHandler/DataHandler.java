@@ -9,7 +9,14 @@ package DataHandler;
  *
  * @author Tom
  */
-import System.*;
+import SystemObjects.Prescription;
+import SystemObjects.Medicine;
+import SystemObjects.Appointment;
+import SystemObjects.AccountRequest;
+import SystemObjects.DoctorFeedback;
+import SystemObjects.AppointmentRequest;
+import SystemObjects.AccountDeletionRequest;
+import SystemObjects.AccountCreationRequest;
 import Users.*;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -389,6 +396,7 @@ public class DataHandler {
 
     private static typeInterface readDoctorFeedback(JsonReader reader, String classType) throws IOException {
         String doctorId = null;
+        String title = null;
         String feedbackNotes = null;
         int rating = -1;
 
@@ -400,12 +408,14 @@ public class DataHandler {
                 doctorId = reader.nextString();
             } else if (nameValue.equals("feedbackNotes")) {
                 feedbackNotes = reader.nextString();
+            } else if (nameValue.equals("title")) {
+                title = reader.nextString();
             } else if (nameValue.equals("rating")) {
                 rating = reader.nextInt();
             }
 
         }
-        return new DoctorFeedback(doctorId, feedbackNotes, rating);
+        return new DoctorFeedback(doctorId, title, feedbackNotes, rating);
 
     }
 

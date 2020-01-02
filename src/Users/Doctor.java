@@ -5,8 +5,8 @@
  */
 package Users;
 
-import System.Appointment;
-import System.DoctorFeedback;
+import SystemObjects.Appointment;
+import SystemObjects.DoctorFeedback;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +33,10 @@ public class Doctor extends User implements IUser {
         this.feedback = feedback;
         this.futureAppointments = futureAppointments;
         this.pastAppointments = pastAppointments;
+    }
+    
+    public void addFeedback(DoctorFeedback feedback){
+        this.feedback.add(feedback);
     }
 
     @Override
@@ -64,6 +68,12 @@ public class Doctor extends User implements IUser {
     public String getPassword() {
         return password;
     }
+
+    public ArrayList<DoctorFeedback> getFeedback() {
+        return feedback;
+    }
+    
+    
 
     public ArrayList<Appointment> getFutureAppointments() {
         return futureAppointments;

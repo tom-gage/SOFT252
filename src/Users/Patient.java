@@ -5,8 +5,8 @@
  */
 package Users;
 
-import System.Appointment;
-import System.Prescription;
+import SystemObjects.Appointment;
+import SystemObjects.Prescription;
 import java.util.ArrayList;
 
 /**

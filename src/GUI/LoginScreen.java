@@ -5,11 +5,15 @@
  */
 package GUI;
 
+import SystemObjects.Prescription;
+import SystemObjects.Medicine;
+import SystemObjects.Appointment;
+import SystemObjects.DoctorFeedback;
+import SystemObjects.AppointmentRequest;
 import DataHandler.DataHandler;
 import LoginHandler.LoginHandler;
-import System.AccountCreationRequest;
-import System.AccountDeletionRequest;
-import System.*;
+import SystemObjects.AccountCreationRequest;
+import SystemObjects.AccountDeletionRequest;
 import Users.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -168,7 +172,7 @@ public class LoginScreen extends javax.swing.JFrame {
         AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("userId:0001");
         Appointment appointment = new Appointment("testDoctorId", "testPatientId");
         AppointmentRequest appointmentRequest = new AppointmentRequest("testDoctorId", "testPatientId", false);
-        DoctorFeedback docFeedback = new DoctorFeedback("testId", "you suck", 0);
+        DoctorFeedback docFeedback = new DoctorFeedback("testId", "feedback title", "feedback details", 0);
         Medicine medicine = new Medicine("paracetemol");
         Prescription prescription = new Prescription("testDocId", "testPatientId", "notes: fuck this", medicine, 100, 100);
 

@@ -5,6 +5,13 @@
  */
 package soft252;
 
+import SystemObjects.Prescription;
+import SystemObjects.Medicine;
+import SystemObjects.Appointment;
+import SystemObjects.DoctorFeedback;
+import SystemObjects.AppointmentRequest;
+import SystemObjects.AccountDeletionRequest;
+import SystemObjects.AccountCreationRequest;
 import Users.Administrator;
 import Users.Doctor;
 import Users.Patient;
@@ -12,7 +19,6 @@ import Users.Secretary;
 
 import DataHandler.DataHandler;
 
-import System.*;
 import Users.typeInterface;
 import java.io.IOException;
 
