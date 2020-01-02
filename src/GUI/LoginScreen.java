@@ -56,7 +56,7 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
 
-        txtUserName.setText("admin1");
+        txtUserName.setText("doctor1");
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserNameActionPerformed(evt);
@@ -115,12 +115,14 @@ public class LoginScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = txtUserName.getText();
         String password = txtPassword.getText();
+        
         try {
             IUser user = LoginHandler.checkCredentials(username, password);
             if (user.equals(null)) {
                 //display error message
             } else {
                 setVisible(false);
+                
                 LoginHandler.openUserScreen(user);
             }
         } catch (IOException ex) {
@@ -170,7 +172,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
         AccountCreationRequest accountCreationRequest = new AccountCreationRequest("testName", "testAddress", "username", "password", 99, "male");
         AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("userId:0001");
-        Appointment appointment = new Appointment("testDoctorId", "testPatientId");
+        Appointment appointment = new Appointment("testDoctorId", "testPatientId", "status: cancelled", null);
         AppointmentRequest appointmentRequest = new AppointmentRequest("testDoctorId", "testPatientId", false);
         DoctorFeedback docFeedback = new DoctorFeedback("testId", "feedback title", "feedback details", 0);
         Medicine medicine = new Medicine("paracetemol");

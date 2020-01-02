@@ -38,9 +38,13 @@ public class LoginHandler {
     public static void openUserScreen(IUser user) throws IOException{
         String classType = user.getClassType();
         
+        
         switch(classType){
             case("Administrator"):
                 new AdminScreen().setVisible(true);
+                break;
+            case("Doctor"):
+                new DoctorScreen((Doctor) user).setVisible(true);
                 break;
         }
     }

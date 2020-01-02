@@ -12,20 +12,35 @@ package SystemObjects;
 import java.util.*;
 import Users.typeInterface;
 
-public class Appointment implements typeInterface{
+public class Appointment implements typeInterface {
 
     private final String classType = "Appointment";
+
     private String doctorId, patientId;
+    private String status;
     private Date appointmentDate;
 
-    public Appointment(String doctorId, String patientId, Date appointmentDate) {
+    public Appointment(String doctorId, String patientId, String status, Date appointmentDate) {
         this.doctorId = doctorId;
         this.patientId = patientId;
+        this.status = status;
         this.appointmentDate = appointmentDate;
     }
 
-    public Appointment(String doctorId, String patientId) {
+    public Appointment(String doctorId, String patientId, String status) {
         this.doctorId = doctorId;
         this.patientId = patientId;
+        this.status = status;
     }
+
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+    
+    
+    
 }

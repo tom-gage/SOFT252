@@ -352,6 +352,7 @@ public class DataHandler {
     private static typeInterface readAppointment(JsonReader reader, String classType) throws IOException {
         String doctorId = null;
         String patientId = null;
+        String status = null;
         Date appointmentDate = null;
 
         while (reader.hasNext()) {
@@ -361,12 +362,14 @@ public class DataHandler {
                 doctorId = reader.nextString();
             } else if (nameValue.equals("patientId")) {
                 patientId = reader.nextString();
-            } else if (nameValue.equals("appointmentDate")) {
+            } else if (nameValue.equals("status")) {
+                status = reader.nextString();
+            }else if (nameValue.equals("appointmentDate")) {
                 appointmentDate = null; //PLACEHOLDER
             }
 
         }
-        return new Appointment(doctorId, patientId);
+        return new Appointment(doctorId, patientId, status, appointmentDate);
 
     }
 

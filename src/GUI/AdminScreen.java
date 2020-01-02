@@ -46,6 +46,9 @@ public class AdminScreen extends javax.swing.JFrame {
 
         updateDoctorList(doctorListModel);
         updateSecretaryList(secretaryListModel);
+        
+        lstDoctors.setSelectedIndex(0);
+        lstSecretarys.setSelectedIndex(0);
     }
 
     private void updateDoctorList(DefaultListModel model) {
@@ -64,15 +67,23 @@ public class AdminScreen extends javax.swing.JFrame {
         }
     }
 
-    private void deleteDoctor() {
+    private void deleteDoctor() throws IOException {
         int selectedDoctor = lstDoctors.getSelectedIndex();
         doctorArray.remove(selectedDoctor);
+        
+        dataArray.set(1, doctorArray);
+        DataHandler.writeUserData(dataArray);
+        
         refreshLists();
     }
 
-    private void deleteSecretary() {
+    private void deleteSecretary() throws IOException {
         int selectedSecretary = lstSecretarys.getSelectedIndex();
         secretaryArray.remove(selectedSecretary);
+        
+        dataArray.set(3, secretaryArray);
+        DataHandler.writeUserData(dataArray);
+        
         refreshLists();
     }
 
@@ -99,6 +110,8 @@ public class AdminScreen extends javax.swing.JFrame {
         btnCreateSecretary = new javax.swing.JButton();
         btnDeleteSecretary = new javax.swing.JButton();
         btnViewDoctor = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,6 +166,10 @@ public class AdminScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("All Doctors:");
+
+        jLabel2.setText("All Secretaries");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,44 +177,48 @@ public class AdminScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSetFeedback)
-                        .addGap(1005, 1005, 1005))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCreateDoctor)
-                            .addComponent(btnDeleteDoctor)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCreateSecretary)
-                            .addComponent(btnDeleteSecretary))
-                        .addGap(647, 647, 647))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnViewDoctor)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSetFeedback)
+                    .addComponent(btnViewDoctor)
+                    .addComponent(btnCreateDoctor)
+                    .addComponent(btnDeleteDoctor))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreateSecretary)
+                    .addComponent(btnDeleteSecretary)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(809, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(209, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreateDoctor)
-                    .addComponent(btnCreateSecretary))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteSecretary)
-                    .addComponent(btnDeleteDoctor))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCreateDoctor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteDoctor))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCreateSecretary)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteSecretary)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSetFeedback)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnViewDoctor)
-                .addGap(43, 43, 43))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,7 +230,11 @@ public class AdminScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateDoctorActionPerformed
 
     private void btnDeleteDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteDoctorActionPerformed
-        deleteDoctor();
+        try {
+            deleteDoctor();
+        } catch (IOException ex) {
+            Logger.getLogger(AdminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnDeleteDoctorActionPerformed
 
@@ -219,7 +244,11 @@ public class AdminScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateSecretaryActionPerformed
 
     private void btnDeleteSecretaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSecretaryActionPerformed
-        deleteSecretary();
+        try {
+            deleteSecretary();
+        } catch (IOException ex) {
+            Logger.getLogger(AdminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteSecretaryActionPerformed
 
     private void btnViewDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDoctorActionPerformed
@@ -281,6 +310,8 @@ public class AdminScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteSecretary;
     private javax.swing.JButton btnSetFeedback;
     private javax.swing.JButton btnViewDoctor;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList<String> lstDoctors;
