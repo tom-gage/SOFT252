@@ -16,27 +16,28 @@ import java.util.ArrayList;
 public class Patient extends User implements IUser {
 
     private final String classType = "Patient";
-//    private String patientUserId, patientName, patientAddress;
     private String userId, name, address, username, password;
 
     private String sex;
     private int age;
+    private ArrayList<Appointment> futureAppointments;
     private ArrayList<Appointment> appointmentHistory;
+
     private ArrayList<Prescription> prescriptions;
 
-    public Patient(String userId, String name, String address, String username, String password, String sex, int age, ArrayList appointmentHistory, ArrayList prescriptions) {
+    public Patient(String userId, String name, String address, String username, String password, String sex, int age, ArrayList futureAppointments, ArrayList appointmentHistory, ArrayList prescriptions) {
         this.userId = userId;
         this.name = name;
         this.address = address;
         this.username = username;
         this.password = password;
-//        this.patientUserId = userId;
-//        this.patientName = name;
-//        this.patientAddress = address;
 
         this.sex = sex;
         this.age = age;
+        
+        this.futureAppointments = futureAppointments;
         this.appointmentHistory = appointmentHistory;
+        
         this.prescriptions = prescriptions;
     }
 
@@ -77,5 +78,19 @@ public class Patient extends User implements IUser {
     public ArrayList<Prescription> getPrescriptions() {
         return prescriptions;
     }
+
+    public ArrayList<Appointment> getFutureAppointments() {
+        return futureAppointments;
+    }
+
+    public void setFutureAppointments(ArrayList<Appointment> futureAppointments) {
+        this.futureAppointments = futureAppointments;
+    }
+
+    public void setAppointmentHistory(ArrayList<Appointment> appointmentHistory) {
+        this.appointmentHistory = appointmentHistory;
+    }
+    
+    
 
 }

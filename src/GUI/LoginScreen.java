@@ -115,14 +115,14 @@ public class LoginScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = txtUserName.getText();
         String password = txtPassword.getText();
-        
+
         try {
             IUser user = LoginHandler.checkCredentials(username, password);
             if (user.equals(null)) {
                 //display error message
             } else {
                 setVisible(false);
-                
+
                 LoginHandler.openUserScreen(user);
             }
         } catch (IOException ex) {
@@ -165,6 +165,9 @@ public class LoginScreen extends javax.swing.JFrame {
         //</editor-fold>
 
         //TEST STUFF
+        
+        
+        
         String id = "0001";
         String name = "Jim";
         String address = "Jims house";
@@ -172,13 +175,14 @@ public class LoginScreen extends javax.swing.JFrame {
 
         AccountCreationRequest accountCreationRequest = new AccountCreationRequest("testName", "testAddress", "username", "password", 99, "male");
         AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("userId:0001");
-        Appointment appointment = new Appointment("testDoctorId", "testPatientId", "status: cancelled", null);
+        Appointment appointment = new Appointment("testDoctorId", "testPatientId", "status: cancelled", "notes", null);
         AppointmentRequest appointmentRequest = new AppointmentRequest("testDoctorId", "testPatientId", false);
         DoctorFeedback docFeedback = new DoctorFeedback("testId", "feedback title", "feedback details", 0);
         Medicine medicine = new Medicine("paracetemol");
         Prescription prescription = new Prescription("testDocId", "testPatientId", "notes: fuck this", medicine, 100, 100);
 
         //patient stuff
+        //ArrayList futureAppointments = new ArrayList();
         ArrayList appointmentHistory = new ArrayList();
         ArrayList prescriptions = new ArrayList();
         //fill patient array stuff
@@ -209,8 +213,8 @@ public class LoginScreen extends javax.swing.JFrame {
         Administrator adminB = new Administrator(id, name, address, "admin2", password);
         Doctor doctor = new Doctor(id, name, address, "doctor1", password, feedback, futureAppointments, pastAppointments);
         Doctor doctorB = new Doctor(id, name, address, "doctor2", password, feedback, futureAppointments, pastAppointments);
-        Patient patient = new Patient(id, name, address, "patient1", password, "Male", 10, appointmentHistory, prescriptions);
-        Patient patientB = new Patient(id, name, address, "patient2", password, "Male", 10, appointmentHistory, prescriptions);
+        Patient patient = new Patient(id, name, address, "patient1", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions);
+        Patient patientB = new Patient(id, name, address, "patient2", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions);
         Secretary secretary = new Secretary(id, name, address, "secretary1", password, appointmentRequests, accountCreationRequests, accountDeletionRequests);
         Secretary secretaryB = new Secretary(id, name, address, "secretary2", password, appointmentRequests, accountCreationRequests, accountDeletionRequests);
 

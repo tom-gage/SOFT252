@@ -9,6 +9,8 @@ package SystemObjects;
  *
  * @author Tom
  */
+import Users.Doctor;
+import Users.Patient;
 import java.util.*;
 import Users.typeInterface;
 
@@ -16,14 +18,24 @@ public class Appointment implements typeInterface {
 
     private final String classType = "Appointment";
 
+    private Doctor doctor;
+    private Patient patient;
+    
     private String doctorId, patientId;
     private String status;
+    private String notes;
     private Date appointmentDate;
 
-    public Appointment(String doctorId, String patientId, String status, Date appointmentDate) {
+    
+    
+    
+    public Appointment(String doctorId, String patientId, String status, String notes, Date appointmentDate) {
         this.doctorId = doctorId;
         this.patientId = patientId;
+
+
         this.status = status;
+        this.notes = notes;
         this.appointmentDate = appointmentDate;
     }
 
@@ -40,6 +52,35 @@ public class Appointment implements typeInterface {
     public String getPatientId() {
         return patientId;
     }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     
     
     

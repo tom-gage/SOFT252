@@ -83,4 +83,14 @@ public class Doctor extends User implements IUser {
         return pastAppointments;
     }
 
+    public void setFutureAppointments(ArrayList<Appointment> futureAppointments) {
+        this.futureAppointments = futureAppointments;
+    }
+
+    public void setPastAppointments(ArrayList<Appointment> pastAppointments) {
+        this.pastAppointments = pastAppointments;
+    }
+    
+    
+
 }

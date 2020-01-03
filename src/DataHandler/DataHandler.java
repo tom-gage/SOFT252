@@ -212,6 +212,7 @@ public class DataHandler {
 
         String sex = null;
         int age = -1;
+        ArrayList futureAppointments = null;
         ArrayList appointmentHistory = null;
         ArrayList prescriptions = null;
 
@@ -234,6 +235,8 @@ public class DataHandler {
                 age = reader.nextInt();
             } else if (nameValue.equals("appointmentHistory")) {
                 appointmentHistory = readSystemObjectClassArray(reader);
+            } else if (nameValue.equals("futureAppointments")) {
+                futureAppointments = readSystemObjectClassArray(reader);
             } else if (nameValue.equals("prescriptions")) {
                 prescriptions = readSystemObjectClassArray(reader);
             } else {
@@ -242,7 +245,7 @@ public class DataHandler {
 
         }
 
-        return new Patient(userId, name, address, username, password, sex, age, appointmentHistory, prescriptions);
+        return new Patient(userId, name, address, username, password, sex, age, futureAppointments, appointmentHistory, prescriptions);
     }
 
     private static IUser readSecretary(JsonReader reader, String classType) throws IOException {
@@ -353,6 +356,7 @@ public class DataHandler {
         String doctorId = null;
         String patientId = null;
         String status = null;
+        String notes = null;
         Date appointmentDate = null;
 
         while (reader.hasNext()) {
@@ -364,12 +368,14 @@ public class DataHandler {
                 patientId = reader.nextString();
             } else if (nameValue.equals("status")) {
                 status = reader.nextString();
-            }else if (nameValue.equals("appointmentDate")) {
+            } else if (nameValue.equals("notes")) {
+                notes = reader.nextString();
+            } else if (nameValue.equals("appointmentDate")) {
                 appointmentDate = null; //PLACEHOLDER
             }
 
         }
-        return new Appointment(doctorId, patientId, status, appointmentDate);
+        return new Appointment(doctorId, patientId, status, notes, appointmentDate);
 
     }
 

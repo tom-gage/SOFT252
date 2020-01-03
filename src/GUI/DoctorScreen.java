@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import DataHandler.DataHandler;
 import Users.Doctor;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -24,6 +26,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     ArrayList<Appointment> pastAppointments;
     ArrayList<Appointment> futureAppointments;
     ArrayList<Patient> patients;
+    Doctor doctor;
 
     public DoctorScreen() {
         initComponents();
@@ -37,8 +40,8 @@ public class DoctorScreen extends javax.swing.JFrame {
         pastAppointments = doctor.getPastAppointments();
         futureAppointments = doctor.getFutureAppointments();
         patients = (ArrayList<Patient>) dataArray.get(2);
-        
-        
+        this.doctor = doctor;
+
         refreshLists();
 
     }
@@ -51,7 +54,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         lstPastAppointments.setModel(pastAppointmentsModel);
         lstFutureAppointments.setModel(futureAppointmentsModel);
         lstPatients.setModel(patientsModel);
-        
+
         populatePastAppointmentsList(pastAppointmentsModel);
         populateFutureAppointmentsList(futureAppointmentsModel);
         populatePatientsList(patientsModel);
@@ -126,10 +129,25 @@ public class DoctorScreen extends javax.swing.JFrame {
         jScrollPane3.setViewportView(lstPastAppointments);
 
         btnViewPastAppointment.setText("View Past Appointment");
+        btnViewPastAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewPastAppointmentActionPerformed(evt);
+            }
+        });
 
         btnViewFutureAppointment.setText("View Upcoming Appointment");
+        btnViewFutureAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewFutureAppointmentActionPerformed(evt);
+            }
+        });
 
         btnConductAppointment.setText("Conduct Appointment");
+        btnConductAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConductAppointmentActionPerformed(evt);
+            }
+        });
 
         btnCreateAppointment.setText("Create New Appointment");
 
@@ -204,6 +222,36 @@ public class DoctorScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnViewPastAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPastAppointmentActionPerformed
+        setVisible(false);
+        Appointment appointment = pastAppointments.get(lstPastAppointments.getSelectedIndex());
+        try {
+            new ViewAppointmentScreen(appointment, doctor).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnViewPastAppointmentActionPerformed
+
+    private void btnViewFutureAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFutureAppointmentActionPerformed
+        setVisible(false);
+        Appointment appointment = futureAppointments.get(lstFutureAppointments.getSelectedIndex());
+        try {
+            new ViewAppointmentScreen(appointment, doctor).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnViewFutureAppointmentActionPerformed
+
+    private void btnConductAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConductAppointmentActionPerformed
+        setVisible(false);
+        Appointment appointment = futureAppointments.get(lstFutureAppointments.getSelectedIndex());
+        try {
+            new ConductAppointmentScreen(doctor, appointment, lstFutureAppointments.getSelectedIndex()).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnConductAppointmentActionPerformed
 
     /**
      * @param args the command line arguments
