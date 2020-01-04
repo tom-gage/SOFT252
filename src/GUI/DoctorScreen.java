@@ -104,6 +104,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         lstPatients = new javax.swing.JList<>();
         btnViewPatient = new javax.swing.JButton();
+        btnPrescribeMedicine = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -152,8 +153,18 @@ public class DoctorScreen extends javax.swing.JFrame {
         btnCreateAppointment.setText("Create New Appointment");
 
         btnCreateMedicine.setText("Create New Medicine");
+        btnCreateMedicine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateMedicineActionPerformed(evt);
+            }
+        });
 
         btnRequestMedicineOrder.setText("Request Medicine Order");
+        btnRequestMedicineOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestMedicineOrderActionPerformed(evt);
+            }
+        });
 
         lstPatients.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -163,6 +174,18 @@ public class DoctorScreen extends javax.swing.JFrame {
         jScrollPane4.setViewportView(lstPatients);
 
         btnViewPatient.setText("View Patient");
+        btnViewPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewPatientActionPerformed(evt);
+            }
+        });
+
+        btnPrescribeMedicine.setText("Prescribe Medicine");
+        btnPrescribeMedicine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrescribeMedicineActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,12 +198,12 @@ public class DoctorScreen extends javax.swing.JFrame {
                     .addComponent(btnViewPastAppointment))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConductAppointment)
                     .addComponent(btnCreateAppointment)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnViewFutureAppointment))
+                            .addComponent(btnViewFutureAppointment)
+                            .addComponent(btnConductAppointment))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnViewPatient)
@@ -189,7 +212,8 @@ public class DoctorScreen extends javax.swing.JFrame {
                                 .addGap(81, 81, 81)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnCreateMedicine)
-                                    .addComponent(btnRequestMedicineOrder))))))
+                                    .addComponent(btnRequestMedicineOrder)))
+                            .addComponent(btnPrescribeMedicine))))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -214,7 +238,9 @@ public class DoctorScreen extends javax.swing.JFrame {
                         .addComponent(btnViewFutureAppointment)
                         .addComponent(btnViewPatient)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnConductAppointment)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConductAppointment)
+                    .addComponent(btnPrescribeMedicine))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCreateAppointment)
                 .addContainerGap(171, Short.MAX_VALUE))
@@ -252,6 +278,38 @@ public class DoctorScreen extends javax.swing.JFrame {
             Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnConductAppointmentActionPerformed
+
+    private void btnPrescribeMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescribeMedicineActionPerformed
+        setVisible(false);
+        try {
+            new PrescribeMedicineScreen(doctor, patients.get(lstPatients.getSelectedIndex())).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPrescribeMedicineActionPerformed
+
+    private void btnViewPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPatientActionPerformed
+        setVisible(false);
+        new ViewPatientScreen(doctor, patients.get(lstPatients.getSelectedIndex())).setVisible(true);
+    }//GEN-LAST:event_btnViewPatientActionPerformed
+
+    private void btnCreateMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateMedicineActionPerformed
+        setVisible(false);
+        try {
+            new CreateNewMedicineScreen(doctor).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCreateMedicineActionPerformed
+
+    private void btnRequestMedicineOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestMedicineOrderActionPerformed
+        setVisible(false);
+        try {
+            new CreateNewMedicineRequestScreen(doctor).setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRequestMedicineOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,6 +350,7 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnConductAppointment;
     private javax.swing.JButton btnCreateAppointment;
     private javax.swing.JButton btnCreateMedicine;
+    private javax.swing.JButton btnPrescribeMedicine;
     private javax.swing.JButton btnRequestMedicineOrder;
     private javax.swing.JButton btnViewFutureAppointment;
     private javax.swing.JButton btnViewPastAppointment;

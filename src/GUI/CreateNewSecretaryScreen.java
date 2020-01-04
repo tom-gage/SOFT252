@@ -6,7 +6,7 @@
 package GUI;
 
 import DataHandler.DataHandler;
-import Misc.userIdGenerator;
+import Misc.UserIdGenerator;
 import SystemObjects.AccountCreationRequest;
 import SystemObjects.Appointment;
 import Users.Doctor;
@@ -30,7 +30,7 @@ public class CreateNewSecretaryScreen extends javax.swing.JFrame {
     }
 
     private void createSecretary() throws IOException {
-        String userId = userIdGenerator.generateUserId("Doctor");
+        String userId = UserIdGenerator.generateUserId("Doctor");
         String name = txtName.getText();
         String address = txtAddress.getText();
         String username = txtUsername.getText();
@@ -39,8 +39,9 @@ public class CreateNewSecretaryScreen extends javax.swing.JFrame {
         ArrayList appointmentRequests = new ArrayList();
         ArrayList accountCreationRequests = new ArrayList();
         ArrayList accountDeletionRequests = new ArrayList();
+        ArrayList medicineOrderRequests = new ArrayList();
 
-        Secretary newSecretary = new Secretary(userId, name, address, username, password, appointmentRequests, accountCreationRequests, accountDeletionRequests);
+        Secretary newSecretary = new Secretary(userId, name, address, username, password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests);
 
         ArrayList dataArray = DataHandler.readUserData();
         ArrayList<Secretary> secretaryArray = (ArrayList<Secretary>) dataArray.get(3);

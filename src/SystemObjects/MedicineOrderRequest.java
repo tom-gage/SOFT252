@@ -11,19 +11,23 @@ import Users.typeInterface;
  *
  * @author Tom
  */
-public class AccountRequest implements typeInterface {
-
+public class MedicineOrderRequest implements typeInterface{
+      private final String classType = "MedicineOrderRequest";
     private String objectId;
-    private String name, address;
-
-    public AccountRequest(String objectId, String name, String Address) {
+    
+    private Medicine medicine;
+    private int amountRequested;
+    
+    public MedicineOrderRequest(String objectId, Medicine medicine, int amountRequested){
         this.objectId = objectId;
-        this.name = name;
-        this.address = address;
+        this.medicine = medicine;
+        this.amountRequested = amountRequested;
     }
 
     @Override
     public String getObjectId() {
         return objectId;
     }
+    
+    
 }

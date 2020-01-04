@@ -40,6 +40,10 @@ public class Patient extends User implements IUser {
         
         this.prescriptions = prescriptions;
     }
+    
+    public void addPrescription(Prescription prescription){
+        prescriptions.add(prescription);
+    }
 
     @Override
     public String getClassType() {
@@ -64,6 +68,14 @@ public class Patient extends User implements IUser {
     @Override
     public String getUserName() {
         return username;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override

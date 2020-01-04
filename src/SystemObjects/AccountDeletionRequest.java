@@ -11,12 +11,19 @@ import Users.typeInterface;
  *
  * @author Tom
  */
-public class AccountDeletionRequest implements typeInterface{
+public class AccountDeletionRequest implements typeInterface {
 
     private final String classType = "AccountDeletionRequest";
+    private String objectId;
     private String username;
 
-    public AccountDeletionRequest(String username) {
+    public AccountDeletionRequest(String objectId, String username) {
+        this.objectId = objectId;
         this.username = username;
+    }
+
+    @Override
+    public String getObjectId() {
+        return objectId;
     }
 }

@@ -14,10 +14,12 @@ import Users.typeInterface;
 public class AccountCreationRequest implements typeInterface{
 
     private final String classType = "AccountCreationRequest";
+    private String objectId;
     private String name, address, username, password, sex;
     private int age;
 
-    public AccountCreationRequest(String name, String Address, String username, String password, int age, String sex) {
+    public AccountCreationRequest(String objectId, String name, String Address, String username, String password, int age, String sex) {
+        this.objectId = objectId;
         this.name = name;
         this.address = address;
         this.username =username;
@@ -25,4 +27,11 @@ public class AccountCreationRequest implements typeInterface{
         this.age = age;
         this.sex = sex;
     }
+
+    @Override
+    public String getObjectId() {
+        return objectId;
+    }
+    
+    
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import DataHandler.DataHandler;
 import Users.Doctor;
 import java.io.IOException;
-import Misc.userIdGenerator;
+import Misc.UserIdGenerator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +29,7 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
     }
 
     private void createDoctor() throws IOException {
-        String userId = userIdGenerator.generateUserId("Doctor");
+        String userId = UserIdGenerator.generateUserId("Doctor");
         String name = txtName.getText();
         String address = txtAddress.getText();
         String username = txtUsername.getText();

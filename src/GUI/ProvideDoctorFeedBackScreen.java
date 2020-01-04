@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import Misc.*;
 
 /**
  *
@@ -53,7 +54,9 @@ public class ProvideDoctorFeedBackScreen extends javax.swing.JFrame {
         String feedback = txtFeedback.getText();
         int rating = (int) spnRating.getValue();
 
-        DoctorFeedback newFeedback = new DoctorFeedback(title, title, feedback, rating);
+        String objectId = ObjectIdGenerator.generateObjectId("DoctorFeedback");
+        
+        DoctorFeedback newFeedback = new DoctorFeedback(objectId, title, title, feedback, rating);
         doctor.addFeedback(newFeedback);
 
         doctorArray.set(lstDoctors.getSelectedIndex(), doctor);

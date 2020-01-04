@@ -11,13 +11,16 @@ import Users.typeInterface;
  *
  * @author Tom
  */
-public class DoctorFeedback implements typeInterface{
+public class DoctorFeedback implements typeInterface {
 
     private final String classType = "DoctorFeedback";
+    private String objectId;
+
     private String doctorId, title, feedbackNotes;
     private int rating;
 
-    public DoctorFeedback(String doctorId, String title, String feedbackNotes, int rating) {
+    public DoctorFeedback(String objectId, String doctorId, String title, String feedbackNotes, int rating) {
+        this.objectId = objectId;
         this.doctorId = doctorId;
         this.title = title;
         this.feedbackNotes = feedbackNotes;
@@ -39,6 +42,10 @@ public class DoctorFeedback implements typeInterface{
     public int getRating() {
         return rating;
     }
-    
-    
+
+    @Override
+    public String getObjectId() {
+        return objectId;
+    }
+
 }

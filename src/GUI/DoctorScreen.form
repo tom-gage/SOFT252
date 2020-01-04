@@ -58,12 +58,12 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnConductAppointment" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCreateAppointment" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                           <Component id="btnViewFutureAppointment" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnConductAppointment" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -76,6 +76,7 @@
                                   <Component id="btnRequestMedicineOrder" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="btnPrescribeMedicine" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -111,7 +112,10 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnConductAppointment" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnConductAppointment" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPrescribeMedicine" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCreateAppointment" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="171" max="32767" attributes="0"/>
@@ -203,11 +207,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Create New Medicine"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateMedicineActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRequestMedicineOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Request Medicine Order"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRequestMedicineOrderActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane4">
       <AuxValues>
@@ -238,6 +248,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="View Patient"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewPatientActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPrescribeMedicine">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Prescribe Medicine"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrescribeMedicineActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

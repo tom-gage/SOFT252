@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Tom
  */
-public class userIdGenerator {
+public class UserIdGenerator {
 
     public static String generateUserId(String classType) throws IOException {
         int largest = 0;
@@ -52,7 +52,7 @@ public class userIdGenerator {
             }
         }
 
-        newUserId = letterIdentifier + Integer.toString(largest);
+        newUserId = letterIdentifier + Integer.toString(largest + 1);
         return newUserId;
     }
 

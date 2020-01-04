@@ -12,20 +12,24 @@ import Users.typeInterface;
  *
  * @author Tom
  */
-public class Medicine implements typeInterface, IUser{
+public class Medicine implements typeInterface, IUser {
 
     private final String classType = "Medicine";
+    private String objectId;
     private String name;
+    private int amountInStock;
 
-    public Medicine(String name) {
+    public Medicine(String objectId, String name, int amountInStock) {
+        this.objectId = objectId;
         this.name = name;
+        this.amountInStock = amountInStock;
     }
-    
-        @Override
-    public String getClassType(){
+
+    @Override
+    public String getClassType() {
         return classType;
     }
-    
+
     @Override
     public String getUserId() {
         return null;
@@ -40,14 +44,19 @@ public class Medicine implements typeInterface, IUser{
     public String getAddress() {
         return null;
     }
-    
+
     @Override
     public String getUserName() {
         return null;
     }
-    
+
     @Override
     public String getPassword() {
         return null;
+    }
+
+    @Override
+    public String getObjectId() {
+        return objectId;
     }
 }

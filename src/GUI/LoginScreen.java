@@ -14,6 +14,7 @@ import DataHandler.DataHandler;
 import LoginHandler.LoginHandler;
 import SystemObjects.AccountCreationRequest;
 import SystemObjects.AccountDeletionRequest;
+import SystemObjects.MedicineOrderRequest;
 import Users.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -173,13 +174,15 @@ public class LoginScreen extends javax.swing.JFrame {
         String address = "Jims house";
         String password = "password";
 
-        AccountCreationRequest accountCreationRequest = new AccountCreationRequest("testName", "testAddress", "username", "password", 99, "male");
-        AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("userId:0001");
-        Appointment appointment = new Appointment("testDoctorId", "testPatientId", "status: cancelled", "notes", null);
-        AppointmentRequest appointmentRequest = new AppointmentRequest("testDoctorId", "testPatientId", false);
-        DoctorFeedback docFeedback = new DoctorFeedback("testId", "feedback title", "feedback details", 0);
-        Medicine medicine = new Medicine("paracetemol");
-        Prescription prescription = new Prescription("testDocId", "testPatientId", "notes: fuck this", medicine, 100, 100);
+        AccountCreationRequest accountCreationRequest = new AccountCreationRequest("AC1", "testName", "testAddress", "username", "password", 99, "male");
+        AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("AD2", "P6");
+        Appointment appointment = new Appointment("Ap3", "D2", "P6", "status: cancelled", "notes", null);
+        AppointmentRequest appointmentRequest = new AppointmentRequest("ar4", "D2", "P1", null, false);
+        DoctorFeedback docFeedback = new DoctorFeedback("DF5", "D2", "feedback title", "feedback details", 0);
+        Medicine medicine = new Medicine("Me6", "paracetemol", 0);
+        Prescription prescription = new Prescription("Pr7", "D2", "P6", "notes: fuck this", medicine, 100, 100);
+        
+        MedicineOrderRequest orderRequest = new MedicineOrderRequest("MR8", medicine, 100);
 
         //patient stuff
         //ArrayList futureAppointments = new ArrayList();
@@ -193,11 +196,13 @@ public class LoginScreen extends javax.swing.JFrame {
         ArrayList appointmentRequests = new ArrayList();
         ArrayList accountCreationRequests = new ArrayList();
         ArrayList accountDeletionRequests = new ArrayList();
+        ArrayList medicineOrderRequests = new ArrayList();
 
         //filling secretary arrays
         appointmentRequests.add(appointmentRequest);
         accountCreationRequests.add(accountCreationRequest);
         accountDeletionRequests.add(accountDeletionRequest);
+        medicineOrderRequests.add(orderRequest);
 
         //doctor stuff
         ArrayList feedback = new ArrayList();
@@ -209,14 +214,14 @@ public class LoginScreen extends javax.swing.JFrame {
         pastAppointments.add(appointment);
 
         //initialise user mock objects
-        Administrator admin = new Administrator(id, name, address, "admin1", password);
-        Administrator adminB = new Administrator(id, name, address, "admin2", password);
-        Doctor doctor = new Doctor(id, name, address, "doctor1", password, feedback, futureAppointments, pastAppointments);
-        Doctor doctorB = new Doctor(id, name, address, "doctor2", password, feedback, futureAppointments, pastAppointments);
-        Patient patient = new Patient(id, name, address, "patient1", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions);
-        Patient patientB = new Patient(id, name, address, "patient2", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions);
-        Secretary secretary = new Secretary(id, name, address, "secretary1", password, appointmentRequests, accountCreationRequests, accountDeletionRequests);
-        Secretary secretaryB = new Secretary(id, name, address, "secretary2", password, appointmentRequests, accountCreationRequests, accountDeletionRequests);
+        Administrator admin = new Administrator("A1", name, address, "admin1", password);
+        Administrator adminB = new Administrator("A2", name, address, "admin2", password);
+        Doctor doctor = new Doctor("D2", name, address, "doctor1", password, feedback, futureAppointments, pastAppointments);
+        Doctor doctorB = new Doctor("D4", name, address, "doctor2", password, feedback, futureAppointments, pastAppointments);
+        Patient patient = new Patient("P5", name, address, "patient1", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions);
+        Patient patientB = new Patient("P6", name, address, "patient2", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions);
+        Secretary secretary = new Secretary("S7", name, address, "secretary1", password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests);
+        Secretary secretaryB = new Secretary("S8", name, address, "secretary2", password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests);
 
         //data write stuff
         ArrayList<Administrator> administratorArray = new ArrayList();

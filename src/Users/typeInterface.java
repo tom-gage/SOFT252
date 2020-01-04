@@ -10,6 +10,6 @@ package Users;
  * @author Tom
  */
 public interface typeInterface {
-
+    public String getObjectId();
     
 }

@@ -18,14 +18,20 @@ public class GetUserById {
 
     public static IUser getUserById(String userId) throws IOException {
         ArrayList dataArray = DataHandler.readUserData();
+        
+        System.out.println("userId = "+userId);
 
         for (int i = 0; i < 3; i++) {
             ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);
 
             for (int x = 0; x < users.size(); x++) {
                 IUser user = users.get(x);
+                
+                System.out.println("user " + i +" = "+ user.getUserId());
+                
                 if (user.getUserId().equals(userId)) {
-                    System.out.println(user.getUserId());
+                    user.getName();
+                    
                     return user;
                 }
             }

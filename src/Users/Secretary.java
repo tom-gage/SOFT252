@@ -7,6 +7,8 @@ package Users;
 
 import SystemObjects.Appointment;
 import SystemObjects.AccountCreationRequest;
+import SystemObjects.AccountDeletionRequest;
+import SystemObjects.MedicineOrderRequest;
 import java.util.*;
 
 /**
@@ -21,21 +23,24 @@ public class Secretary extends User implements IUser {
 
     private ArrayList<Appointment> appointmentRequests;
     private ArrayList<AccountCreationRequest> accountCreationRequests;
-    private ArrayList<AccountCreationRequest> accountDeletionRequests;
+    private ArrayList<AccountDeletionRequest> accountDeletionRequests;
+    private ArrayList<MedicineOrderRequest> medicineOrderRequests;
 
-    public Secretary(String userId, String name, String address, String username, String password, ArrayList appointmentRequests, ArrayList accountCreationRequests, ArrayList accountDeletionRequests) {
+    public Secretary(String userId, String name, String address, String username, String password, ArrayList appointmentRequests, ArrayList accountCreationRequests, ArrayList accountDeletionRequests, ArrayList medicineOrderRequests) {
         this.userId = userId;
         this.name = name;
         this.address = address;
         this.username = username;
         this.password = password;
-//        this.secretaryUserId = userId;
-//        this.secretaryName = name;
-//        this.secretaryAddress = address;
 
         this.appointmentRequests = appointmentRequests;
         this.accountCreationRequests = accountCreationRequests;
         this.accountDeletionRequests = accountDeletionRequests;
+        this.medicineOrderRequests = medicineOrderRequests;
+    }
+    
+    public void addMedicineOrderRequest(MedicineOrderRequest order){
+        medicineOrderRequests.add(order);
     }
 
     @Override
@@ -72,8 +77,22 @@ public class Secretary extends User implements IUser {
         return accountCreationRequests;
     }
 
-    public ArrayList<AccountCreationRequest> getAccountDeletionRequests() {
+    public ArrayList<AccountDeletionRequest> getAccountDeletionRequests() {
         return accountDeletionRequests;
     }
+
+    public ArrayList<MedicineOrderRequest> getMedicineOrderRequests() {
+        return medicineOrderRequests;
+    }
+
+    public ArrayList<Appointment> getAppointmentRequests() {
+        return appointmentRequests;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    
+    
 
 }

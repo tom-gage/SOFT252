@@ -17,22 +17,20 @@ import Users.typeInterface;
 public class Appointment implements typeInterface {
 
     private final String classType = "Appointment";
+    private String objectId;
 
     private Doctor doctor;
     private Patient patient;
-    
+
     private String doctorId, patientId;
     private String status;
     private String notes;
     private Date appointmentDate;
 
-    
-    
-    
-    public Appointment(String doctorId, String patientId, String status, String notes, Date appointmentDate) {
+    public Appointment(String objectId, String doctorId, String patientId, String status, String notes, Date appointmentDate) {
+        this.objectId = objectId;
         this.doctorId = doctorId;
         this.patientId = patientId;
-
 
         this.status = status;
         this.notes = notes;
@@ -43,6 +41,11 @@ public class Appointment implements typeInterface {
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.status = status;
+    }
+
+    @Override
+    public String getObjectId() {
+        return objectId;
     }
 
     public Date getAppointmentDate() {
@@ -56,6 +59,12 @@ public class Appointment implements typeInterface {
     public String getNotes() {
         return notes;
     }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+    
+    
 
     public String getStatus() {
         return status;
@@ -80,8 +89,5 @@ public class Appointment implements typeInterface {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
-    
-    
+
 }

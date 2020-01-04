@@ -12,15 +12,17 @@ import Users.typeInterface;
  *
  * @author Tom
  */
-public class AppointmentRequest implements typeInterface{
+public class AppointmentRequest implements typeInterface {
 
     private final String classType = "AppointmentRequest";
+    private String objectId;
 
     private String doctorId, patientId;
     private Date appointmentDate;
     private boolean approved = false;
 
-    public AppointmentRequest(String doctorId, String patientId, Date appointmentDate, boolean approved) {
+    public AppointmentRequest(String objectId, String doctorId, String patientId, Date appointmentDate, boolean approved) {
+        this.objectId = objectId;
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.appointmentDate = appointmentDate;
@@ -31,5 +33,10 @@ public class AppointmentRequest implements typeInterface{
         this.doctorId = doctorId;
         this.patientId = patientId;
         this.approved = approved;
+    }
+
+    @Override
+    public String getObjectId() {
+        return objectId;
     }
 }
