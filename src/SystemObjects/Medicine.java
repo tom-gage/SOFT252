@@ -6,13 +6,13 @@
 package SystemObjects;
 
 import Users.IUser;
-import Users.typeInterface;
+import java.util.ArrayList;
 
 /**
  *
  * @author Tom
  */
-public class Medicine implements typeInterface, IUser {
+public class Medicine implements ISystemObject, IUser {
 
     private final String classType = "Medicine";
     private String objectId;
@@ -59,4 +59,23 @@ public class Medicine implements typeInterface, IUser {
     public String getObjectId() {
         return objectId;
     }
+
+    public int getAmountInStock() {
+        return amountInStock;
+    }
+
+    public void setAmountInStock(int amountInStock) {
+        this.amountInStock = amountInStock;
+    }
+
+    @Override
+    public ArrayList<Message> getMessages() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setMessages(ArrayList<Message> messages) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

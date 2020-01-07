@@ -5,13 +5,11 @@
  */
 package SystemObjects;
 
-import Users.typeInterface;
-
 /**
  *
  * @author Tom
  */
-public class DoctorFeedback implements typeInterface {
+public class DoctorFeedback implements ISystemObject {
 
     private final String classType = "DoctorFeedback";
     private String objectId;

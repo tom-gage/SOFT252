@@ -15,7 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import Misc.*;
+import SystemObjects.Message;
 import Users.Secretary;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -38,26 +41,37 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
         dataArray = DataHandler.readUserData();
         medicines = (ArrayList<Medicine>) dataArray.get(4);
         secretaries = (ArrayList<Secretary>) dataArray.get(3);
+        
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 100,1);
+        spnQuantity.setModel(model);
+        
         refreshLists();
     }
-    
-    private void createNewMedicineRequest() throws IOException{
+
+    private void createNewMedicineRequest() throws IOException {
         medicine = medicines.get(lstMedicines.getSelectedIndex());
         amountRequested = (int) spnQuantity.getValue();
         objectId = ObjectIdGenerator.generateObjectId("MedicineOrderRequest");
         MedicineOrderRequest medicineOrderRequest = new MedicineOrderRequest(objectId, medicine, amountRequested);
-        
-        
-        
+
         for (int i = 0; i < secretaries.size(); i++) {
-            System.out.println(medicineOrderRequest.getObjectId());
             Secretary secretary = secretaries.get(i);
             secretary.addMedicineOrderRequest(medicineOrderRequest);
             secretaries.set(i, secretary);
         }
+
         dataArray.set(3, secretaries);
-        
+
         DataHandler.writeUserData(dataArray);
+
+        for (int i = 0; i < secretaries.size(); i++) {
+            String recipientId = secretaries.get(i).getUserId();
+            Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "newMedicineRequestRecieved",
+                    recipientId, "New Medicine Order Request", "An order of: " + medicine.getName() + " x " + amountRequested + " has been requested.");
+            MessagerHandler.registerNewObservers();
+            MessagerHandler.messageUsers(newMessage);
+        }
+
     }
 
     private void refreshLists() {
@@ -87,6 +101,9 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
         spnQuantity = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,51 +114,68 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstMedicines);
 
-        btnCancel.setText("jButton1");
+        btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
 
-        btnCreate.setText("jButton1");
+        btnCreate.setText("Submit Request");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
             }
         });
 
+        jLabel1.setText("Create New Medicine Request:");
+
+        jLabel2.setText("Select Medicine:");
+
+        jLabel3.setText("Select Quantity:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addComponent(btnCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
                 .addComponent(btnCreate)
-                .addGap(93, 93, 93))
+                .addGap(56, 56, 56))
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(156, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(btnCancel)
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(btnCreate)
-                .addGap(57, 57, 57))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreate)
+                    .addComponent(btnCancel))
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -161,7 +195,7 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
         try {
             new DoctorScreen(doctor).setVisible(true);
             createNewMedicineRequest();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(CreateNewMedicineRequestScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -205,6 +239,9 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> lstMedicines;
     private javax.swing.JSpinner spnQuantity;

@@ -5,11 +5,14 @@
  */
 package Users;
 
+import SystemObjects.Message;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
  */
-public class Administrator extends User implements IUser {
+public class Administrator implements IUser {
 
     private final String classType = "Administrator";
 
@@ -52,5 +55,15 @@ public class Administrator extends User implements IUser {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public ArrayList<Message> getMessages() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setMessages(ArrayList<Message> messages) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

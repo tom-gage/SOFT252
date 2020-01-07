@@ -7,6 +7,7 @@ package GUI;
 
 import java.util.ArrayList;
 import DataHandler.DataHandler;
+import Misc.MessagerHandler;
 import Users.Doctor;
 import java.io.IOException;
 import Misc.UserIdGenerator;
@@ -38,8 +39,9 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
         ArrayList feedback = new ArrayList<>();
         ArrayList futureAppointments = new ArrayList<>();
         ArrayList pastAppointments = new ArrayList<>();
+        ArrayList messages = new ArrayList();
         
-        Doctor newDoctor = new Doctor(userId, name, address, username, password, feedback, futureAppointments, pastAppointments);
+        Doctor newDoctor = new Doctor(userId, name, address, username, password, feedback, futureAppointments, pastAppointments, messages);
         
         ArrayList dataArray = DataHandler.readUserData();
         ArrayList<Doctor> doctorArray = (ArrayList<Doctor>) dataArray.get(1);
@@ -48,6 +50,7 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
         dataArray.set(1, doctorArray);
         
         DataHandler.writeUserData(dataArray);
+        MessagerHandler.registerNewObservers();
         
         setVisible(false);
         new AdminScreen().setVisible(true);
@@ -72,6 +75,7 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,14 +93,6 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
             }
         });
 
-        txtName.setText("jTextField1");
-
-        txtAddress.setText("jTextField2");
-
-        txtUsername.setText("jTextField3");
-
-        txtPassword.setText("jTextField4");
-
         jLabel1.setText("Name:");
 
         jLabel2.setText("Address:");
@@ -105,14 +101,17 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
 
         jLabel4.setText("Username:");
 
+        jLabel5.setText("Create New Doctor:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
                         .addComponent(btnCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCreate))
@@ -124,16 +123,20 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(251, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPassword)
+                                .addComponent(txtUsername)
+                                .addComponent(txtAddress)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -150,11 +153,11 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(38, 38, 38)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnCreate))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
 
         pack();
@@ -180,45 +183,45 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreateNewDoctorScreen().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(CreateNewDoctorScreen.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CreateNewDoctorScreen().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -227,6 +230,7 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPassword;

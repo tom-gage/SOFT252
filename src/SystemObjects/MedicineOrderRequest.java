@@ -5,20 +5,19 @@
  */
 package SystemObjects;
 
-import Users.typeInterface;
-
 /**
  *
  * @author Tom
  */
-public class MedicineOrderRequest implements typeInterface{
-      private final String classType = "MedicineOrderRequest";
+public class MedicineOrderRequest implements ISystemObject {
+
+    private final String classType = "MedicineOrderRequest";
     private String objectId;
-    
+
     private Medicine medicine;
     private int amountRequested;
-    
-    public MedicineOrderRequest(String objectId, Medicine medicine, int amountRequested){
+
+    public MedicineOrderRequest(String objectId, Medicine medicine, int amountRequested) {
         this.objectId = objectId;
         this.medicine = medicine;
         this.amountRequested = amountRequested;
@@ -28,6 +27,13 @@ public class MedicineOrderRequest implements typeInterface{
     public String getObjectId() {
         return objectId;
     }
-    
-    
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public int getAmountRequested() {
+        return amountRequested;
+    }
+
 }

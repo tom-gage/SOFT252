@@ -14,6 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import Misc.*;
+import SystemObjects.Message;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -29,6 +32,10 @@ public class ProvideDoctorFeedBackScreen extends javax.swing.JFrame {
 
         this.dataArray = DataHandler.readUserData();
         this.doctorArray = (ArrayList<Doctor>) dataArray.get(1);
+        
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 100,1);
+        spnRating.setModel(model);
+        
         refreshLists();
     }
 
@@ -55,7 +62,7 @@ public class ProvideDoctorFeedBackScreen extends javax.swing.JFrame {
         int rating = (int) spnRating.getValue();
 
         String objectId = ObjectIdGenerator.generateObjectId("DoctorFeedback");
-        
+
         DoctorFeedback newFeedback = new DoctorFeedback(objectId, title, title, feedback, rating);
         doctor.addFeedback(newFeedback);
 
@@ -64,6 +71,10 @@ public class ProvideDoctorFeedBackScreen extends javax.swing.JFrame {
         dataArray.set(1, doctorArray);
 
         DataHandler.writeUserData(dataArray);
+
+        Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "feedbackRecieved", doctor.getUserId(), "New Feedback Recieved", "You have been provided with feedback, please contact your administrator to view it.");
+        MessagerHandler.registerNewObservers();
+        MessagerHandler.messageUsers(newMessage);
 
         setVisible(false);
         try {
@@ -120,7 +131,7 @@ public class ProvideDoctorFeedBackScreen extends javax.swing.JFrame {
 
         jLabel1.setText("Feedback:");
 
-        jLabel2.setText("Doctor:");
+        jLabel2.setText("Select Doctor:");
 
         jLabel3.setText("Subject:");
 
@@ -198,41 +209,41 @@ public class ProvideDoctorFeedBackScreen extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new ProvideDoctorFeedBackScreen().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    new ProvideDoctorFeedBackScreen().setVisible(true);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(ProvideDoctorFeedBackScreen.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

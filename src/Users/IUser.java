@@ -5,6 +5,9 @@
  */
 package Users;
 
+import SystemObjects.Message;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
@@ -16,4 +19,6 @@ public interface IUser {
     public String getAddress();
     public String getUserName();
     public String getPassword();
+    public ArrayList<Message> getMessages();
+    public void setMessages(ArrayList<Message> messages);
 }

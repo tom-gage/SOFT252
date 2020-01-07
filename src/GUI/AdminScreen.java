@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import AdminHandler.AdminHandler;
 import DataHandler.DataHandler;
 import Users.Doctor;
 import Users.Secretary;
@@ -112,6 +111,7 @@ public class AdminScreen extends javax.swing.JFrame {
         btnViewDoctor = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnLogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,7 +168,14 @@ public class AdminScreen extends javax.swing.JFrame {
 
         jLabel1.setText("All Doctors:");
 
-        jLabel2.setText("All Secretaries");
+        jLabel2.setText("All Secretaries:");
+
+        btnLogOut.setText("LogOut");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,12 +196,16 @@ public class AdminScreen extends javax.swing.JFrame {
                     .addComponent(btnDeleteSecretary)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(809, Short.MAX_VALUE))
+                .addContainerGap(307, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogOut)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -203,7 +214,7 @@ public class AdminScreen extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -218,7 +229,9 @@ public class AdminScreen extends javax.swing.JFrame {
                 .addComponent(btnSetFeedback)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnViewDoctor)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addComponent(btnLogOut)
+                .addContainerGap())
         );
 
         pack();
@@ -268,6 +281,11 @@ public class AdminScreen extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnSetFeedbackActionPerformed
 
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        setVisible(false);
+        new LoginScreen().setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -308,6 +326,7 @@ public class AdminScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateSecretary;
     private javax.swing.JButton btnDeleteDoctor;
     private javax.swing.JButton btnDeleteSecretary;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnSetFeedback;
     private javax.swing.JButton btnViewDoctor;
     private javax.swing.JLabel jLabel1;

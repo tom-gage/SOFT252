@@ -5,14 +5,13 @@
  */
 package SystemObjects;
 
-import Users.typeInterface;
 import com.sun.org.apache.xalan.internal.xsltc.cmdline.getopt.GetOpt;
 
 /**
  *
  * @author Tom
  */
-public class Prescription implements typeInterface {
+public class Prescription implements ISystemObject {
 
     private final String classType = "Prescription";
     private String objectId;

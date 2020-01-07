@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AdminHandler;
-
-import Users.IUser;
+package SystemObjects;
 
 /**
  *
  * @author Tom
  */
-public class AdminHandler {
-    public void deleteUser(IUser user){
-        
-    }
+public interface ISystemObject {
+    public String getObjectId();
+    
 }

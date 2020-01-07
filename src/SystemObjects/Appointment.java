@@ -12,22 +12,19 @@ package SystemObjects;
 import Users.Doctor;
 import Users.Patient;
 import java.util.*;
-import Users.typeInterface;
 
-public class Appointment implements typeInterface {
+public class Appointment implements ISystemObject {
 
     private final String classType = "Appointment";
     private String objectId;
 
-    private Doctor doctor;
-    private Patient patient;
 
     private String doctorId, patientId;
     private String status;
     private String notes;
-    private Date appointmentDate;
+    private String appointmentDate;
 
-    public Appointment(String objectId, String doctorId, String patientId, String status, String notes, Date appointmentDate) {
+    public Appointment(String objectId, String doctorId, String patientId, String status, String notes, String appointmentDate) {
         this.objectId = objectId;
         this.doctorId = doctorId;
         this.patientId = patientId;
@@ -48,7 +45,7 @@ public class Appointment implements typeInterface {
         return objectId;
     }
 
-    public Date getAppointmentDate() {
+    public String getAppointmentDate() {
         return appointmentDate;
     }
 
@@ -74,7 +71,7 @@ public class Appointment implements typeInterface {
         this.notes = notes;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(String appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 

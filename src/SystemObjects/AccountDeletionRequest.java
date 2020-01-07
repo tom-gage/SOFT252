@@ -5,25 +5,27 @@
  */
 package SystemObjects;
 
-import Users.typeInterface;
-
 /**
  *
  * @author Tom
  */
-public class AccountDeletionRequest implements typeInterface {
+public class AccountDeletionRequest implements ISystemObject {
 
     private final String classType = "AccountDeletionRequest";
     private String objectId;
-    private String username;
+    private String userId;
 
-    public AccountDeletionRequest(String objectId, String username) {
+    public AccountDeletionRequest(String objectId, String userId) {
         this.objectId = objectId;
-        this.username = username;
+        this.userId = userId;
     }
 
     @Override
     public String getObjectId() {
         return objectId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }

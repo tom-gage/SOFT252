@@ -6,22 +6,21 @@
 package SystemObjects;
 
 import java.util.Date;
-import Users.typeInterface;
 
 /**
  *
  * @author Tom
  */
-public class AppointmentRequest implements typeInterface {
+public class AppointmentRequest implements ISystemObject {
 
     private final String classType = "AppointmentRequest";
     private String objectId;
 
     private String doctorId, patientId;
-    private Date appointmentDate;
+    private String appointmentDate;
     private boolean approved = false;
 
-    public AppointmentRequest(String objectId, String doctorId, String patientId, Date appointmentDate, boolean approved) {
+    public AppointmentRequest(String objectId, String doctorId, String patientId, String appointmentDate, boolean approved) {
         this.objectId = objectId;
         this.doctorId = doctorId;
         this.patientId = patientId;
@@ -39,4 +38,23 @@ public class AppointmentRequest implements typeInterface {
     public String getObjectId() {
         return objectId;
     }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public String getClassType() {
+        return classType;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+    
+    
+    
 }

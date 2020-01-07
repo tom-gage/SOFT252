@@ -5,11 +5,15 @@
  */
 package Users;
 
+import SystemObjects.Message;
+
 /**
  *
  * @author Tom
  */
-public interface typeInterface {
-    public String getObjectId();
-    
+public interface IObservable {
+
+    public static void registerObserver(IObserver observer){};
+    public void removeObserver(IObserver observer);
+    public void notifyObservers(Message message);
 }

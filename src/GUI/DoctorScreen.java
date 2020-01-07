@@ -9,6 +9,7 @@ import SystemObjects.Appointment;
 import Users.Patient;
 import java.util.ArrayList;
 import DataHandler.DataHandler;
+import Misc.GetUserById;
 import Users.Doctor;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -43,10 +44,16 @@ public class DoctorScreen extends javax.swing.JFrame {
         this.doctor = doctor;
 
         refreshLists();
-
+        messageAlert();
     }
 
-    private void refreshLists() {
+    private void messageAlert() {
+        int unread = doctor.getMessages().size();
+        String messageAlert = "You have " + unread + " unread messages!";
+        lblMessageAlert.setText(messageAlert);
+    }
+
+    private void refreshLists() throws IOException {
         DefaultListModel<String> pastAppointmentsModel = new DefaultListModel();
         DefaultListModel<String> futureAppointmentsModel = new DefaultListModel();
         DefaultListModel<String> patientsModel = new DefaultListModel();
@@ -66,15 +73,21 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     private void populatePastAppointmentsList(DefaultListModel model) {
         for (int i = 0; i < pastAppointments.size(); i++) {
-            Appointment appointment = pastAppointments.get(i);
-            model.addElement(appointment.getAppointmentDate() + " - " + appointment.getPatientId());
+            try {
+                Appointment appointment = pastAppointments.get(i);
+                Patient patient = (Patient) GetUserById.getUserById(appointment.getPatientId());
+                model.addElement(appointment.getAppointmentDate() + " - " + patient.getName());
+            } catch (IOException ex) {
+                Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
-    private void populateFutureAppointmentsList(DefaultListModel model) {
+    private void populateFutureAppointmentsList(DefaultListModel model) throws IOException {
         for (int i = 0; i < futureAppointments.size(); i++) {
             Appointment appointment = futureAppointments.get(i);
-            model.addElement(appointment.getAppointmentDate() + " - " + appointment.getPatientId());
+            Patient patient = (Patient) GetUserById.getUserById(appointment.getPatientId());
+            model.addElement(appointment.getAppointmentDate() + " - " + patient.getName());
         }
     }
 
@@ -105,6 +118,12 @@ public class DoctorScreen extends javax.swing.JFrame {
         lstPatients = new javax.swing.JList<>();
         btnViewPatient = new javax.swing.JButton();
         btnPrescribeMedicine = new javax.swing.JButton();
+        btnViewMessages = new javax.swing.JButton();
+        lblMessageAlert = new javax.swing.JLabel();
+        btnLogOut = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -151,6 +170,11 @@ public class DoctorScreen extends javax.swing.JFrame {
         });
 
         btnCreateAppointment.setText("Create New Appointment");
+        btnCreateAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAppointmentActionPerformed(evt);
+            }
+        });
 
         btnCreateMedicine.setText("Create New Medicine");
         btnCreateMedicine.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +211,28 @@ public class DoctorScreen extends javax.swing.JFrame {
             }
         });
 
+        btnViewMessages.setText("View Messages");
+        btnViewMessages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewMessagesActionPerformed(evt);
+            }
+        });
+
+        lblMessageAlert.setText("lblMessageAlert");
+
+        btnLogOut.setText("LogOut");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Past Appointments:");
+
+        jLabel2.setText("Upcoming Appointments:");
+
+        jLabel3.setText("Patients:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,56 +240,75 @@ public class DoctorScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViewPastAppointment))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCreateAppointment)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnViewMessages)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblMessageAlert)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogOut))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewPastAppointment)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnViewFutureAppointment)
-                            .addComponent(btnConductAppointment))
+                            .addComponent(btnConductAppointment)
+                            .addComponent(jLabel2))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(btnCreateAppointment)
                             .addComponent(btnViewPatient)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCreateMedicine)
-                                    .addComponent(btnRequestMedicineOrder)))
-                            .addComponent(btnPrescribeMedicine))))
-                .addContainerGap(166, Short.MAX_VALUE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPrescribeMedicine))
+                        .addGap(71, 71, 71)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCreateMedicine)
+                            .addComponent(btnRequestMedicineOrder))
+                        .addGap(0, 103, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
                         .addComponent(btnCreateMedicine)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnRequestMedicineOrder)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnViewPastAppointment)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRequestMedicineOrder))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnViewPastAppointment)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnViewFutureAppointment)
+                                .addComponent(btnViewPatient)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnConductAppointment)
+                            .addComponent(btnPrescribeMedicine))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCreateAppointment)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogOut)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnViewFutureAppointment)
-                        .addComponent(btnViewPatient)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConductAppointment)
-                    .addComponent(btnPrescribeMedicine))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCreateAppointment)
-                .addContainerGap(171, Short.MAX_VALUE))
+                        .addComponent(btnViewMessages)
+                        .addComponent(lblMessageAlert)))
+                .addContainerGap())
         );
 
         pack();
@@ -253,7 +318,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         setVisible(false);
         Appointment appointment = pastAppointments.get(lstPastAppointments.getSelectedIndex());
         try {
-            new ViewAppointmentScreen(appointment, doctor).setVisible(true);
+            new ViewAppointmentScreen(doctor, appointment, doctor).setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -263,7 +328,7 @@ public class DoctorScreen extends javax.swing.JFrame {
         setVisible(false);
         Appointment appointment = futureAppointments.get(lstFutureAppointments.getSelectedIndex());
         try {
-            new ViewAppointmentScreen(appointment, doctor).setVisible(true);
+            new ViewAppointmentScreen(doctor, appointment, doctor).setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -311,6 +376,21 @@ public class DoctorScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRequestMedicineOrderActionPerformed
 
+    private void btnCreateAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAppointmentActionPerformed
+        setVisible(false);
+        new CreateNewAppointmentScreen(doctor, doctor, patients.get(lstPatients.getSelectedIndex())).setVisible(true);
+    }//GEN-LAST:event_btnCreateAppointmentActionPerformed
+
+    private void btnViewMessagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewMessagesActionPerformed
+        setVisible(false);
+        new ViewMessagesScreen(doctor).setVisible(true);
+    }//GEN-LAST:event_btnViewMessagesActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        setVisible(false);
+        new LoginScreen().setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -350,16 +430,22 @@ public class DoctorScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnConductAppointment;
     private javax.swing.JButton btnCreateAppointment;
     private javax.swing.JButton btnCreateMedicine;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnPrescribeMedicine;
     private javax.swing.JButton btnRequestMedicineOrder;
     private javax.swing.JButton btnViewFutureAppointment;
+    private javax.swing.JButton btnViewMessages;
     private javax.swing.JButton btnViewPastAppointment;
     private javax.swing.JButton btnViewPatient;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblMessageAlert;
     private javax.swing.JList<String> lstFutureAppointments;
     private javax.swing.JList<String> lstPastAppointments;
     private javax.swing.JList<String> lstPatients;

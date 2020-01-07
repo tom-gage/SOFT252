@@ -53,6 +53,13 @@ public class ConductAppointmentScreen extends javax.swing.JFrame {
 
         this.appointment = appointment;
         this.appointmentIndex = appointmentIndex;
+        
+        populateLabels();
+    }
+    
+    private void populateLabels(){
+        String title = "Conducting appointment on patient " + patient.getName() + ".";
+        lblTitle.setText(title);
     }
 
     private void completeAppointment() throws IOException {
@@ -98,31 +105,20 @@ public class ConductAppointmentScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblStatus = new javax.swing.JLabel();
-        lblDate = new javax.swing.JLabel();
-        lblDoctor = new javax.swing.JLabel();
-        lblPatient = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtNotes = new javax.swing.JTextArea();
         btnCancel = new javax.swing.JButton();
         btnCompleteAppointment = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblStatus.setText("status");
-
-        lblDate.setText("date");
-
-        lblDoctor.setText("lblDoctor");
-
-        lblPatient.setText("patient");
-
         txtNotes.setColumns(20);
         txtNotes.setRows(5);
-        txtNotes.setText("notes\n");
         jScrollPane1.setViewportView(txtNotes);
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Cancel Appointment");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -136,51 +132,40 @@ public class ConductAppointmentScreen extends javax.swing.JFrame {
             }
         });
 
+        lblTitle.setText("Conducting appointment for patient:");
+
+        jLabel1.setText("Notes:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDate)
-                                .addGap(46, 46, 46)
-                                .addComponent(lblDoctor)
-                                .addGap(109, 109, 109)
-                                .addComponent(lblPatient)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(356, 356, 356)
-                                .addComponent(lblStatus))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(btnCancel)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnCompleteAppointment))))
-                .addContainerGap(140, Short.MAX_VALUE))
+                        .addComponent(btnCancel)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCompleteAppointment))
+                    .addComponent(jLabel1))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDoctor)
-                    .addComponent(lblPatient)
-                    .addComponent(lblDate))
-                .addGap(10, 10, 10)
-                .addComponent(lblStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblTitle)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnCompleteAppointment))
-                .addGap(22, 22, 22))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -212,46 +197,44 @@ public class ConductAppointmentScreen extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConductAppointmentScreen().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ConductAppointmentScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ConductAppointmentScreen().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCompleteAppointment;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel lblDoctor;
-    private javax.swing.JLabel lblPatient;
-    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JTextArea txtNotes;
     // End of variables declaration//GEN-END:variables
 }

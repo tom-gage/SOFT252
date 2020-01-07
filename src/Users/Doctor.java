@@ -5,25 +5,30 @@
  */
 package Users;
 
+import Misc.ReplaceUser;
 import SystemObjects.Appointment;
 import SystemObjects.DoctorFeedback;
+import SystemObjects.Message;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Tom
  */
-public class Doctor extends User implements IUser {
+public class Doctor implements IUser, IObserver {
 
     private final String classType = "Doctor";
-//    private String doctorUserId, doctorName, doctorAddress;
     private String userId, name, address, username, password;
-    
+
     private ArrayList<DoctorFeedback> feedback;
     private ArrayList<Appointment> futureAppointments;
     private ArrayList<Appointment> pastAppointments;
+    private ArrayList<Message> messages;
 
-    public Doctor(String userId, String name, String address, String username, String password, ArrayList feedback, ArrayList futureAppointments, ArrayList pastAppointments) {
+    public Doctor(String userId, String name, String address, String username, String password, ArrayList feedback, ArrayList futureAppointments, ArrayList pastAppointments, ArrayList messages) {
         this.userId = userId;
         this.name = name;
         this.address = address;
@@ -33,10 +38,34 @@ public class Doctor extends User implements IUser {
         this.feedback = feedback;
         this.futureAppointments = futureAppointments;
         this.pastAppointments = pastAppointments;
+        this.messages = messages;
+        
     }
+
+    @Override
+    public void update(Message message) {
+        if (message.getMessageUserId().equals(userId)) {
+            messages.add(message);
+            try {
+                ReplaceUser.replaceUser(this);
+            } catch (IOException ex) {
+                Logger.getLogger(Patient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+
     
-    public void addFeedback(DoctorFeedback feedback){
+    
+    public void addFeedback(DoctorFeedback feedback) {
         this.feedback.add(feedback);
+    }
+
+    public void addAppointment(Appointment appointment) {
+        futureAppointments.add(appointment);
     }
 
     @Override
@@ -72,8 +101,6 @@ public class Doctor extends User implements IUser {
     public ArrayList<DoctorFeedback> getFeedback() {
         return feedback;
     }
-    
-    
 
     public ArrayList<Appointment> getFutureAppointments() {
         return futureAppointments;
@@ -90,7 +117,10 @@ public class Doctor extends User implements IUser {
     public void setPastAppointments(ArrayList<Appointment> pastAppointments) {
         this.pastAppointments = pastAppointments;
     }
-    
-    
+
+    @Override
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
+    }
 
 }

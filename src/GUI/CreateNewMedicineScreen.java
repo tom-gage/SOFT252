@@ -53,6 +53,7 @@ public class CreateNewMedicineScreen extends javax.swing.JFrame {
         btnCreateMedicine = new javax.swing.JButton();
         txtMedicineName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,9 +71,9 @@ public class CreateNewMedicineScreen extends javax.swing.JFrame {
             }
         });
 
-        txtMedicineName.setText("jTextField1");
-
         jLabel1.setText("Create New Medicine:");
+
+        jLabel2.setText("Create name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,33 +82,36 @@ public class CreateNewMedicineScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
+                        .addGap(200, 200, 200)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
                         .addComponent(btnCancel)
-                        .addGap(132, 132, 132)
+                        .addGap(75, 75, 75)
                         .addComponent(btnCreateMedicine))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(jLabel1)))
-                .addContainerGap(146, Short.MAX_VALUE))
+                        .addGap(189, 189, 189)
+                        .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(185, 185, 185)
+                .addGap(104, 104, 104)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCancel)
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCreateMedicine)
-                        .addGap(86, 86, 86))))
+                .addGap(110, 110, 110)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreateMedicine)
+                    .addComponent(btnCancel))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,6 +176,7 @@ public class CreateNewMedicineScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCreateMedicine;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtMedicineName;
     // End of variables declaration//GEN-END:variables
 }

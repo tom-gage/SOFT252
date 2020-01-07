@@ -5,13 +5,11 @@
  */
 package SystemObjects;
 
-import Users.typeInterface;
-
 /**
  *
  * @author Tom
  */
-public class AccountCreationRequest implements typeInterface{
+public class AccountCreationRequest implements ISystemObject {
 
     private final String classType = "AccountCreationRequest";
     private String objectId;
@@ -22,7 +20,7 @@ public class AccountCreationRequest implements typeInterface{
         this.objectId = objectId;
         this.name = name;
         this.address = address;
-        this.username =username;
+        this.username = username;
         this.password = password;
         this.age = age;
         this.sex = sex;
@@ -32,6 +30,33 @@ public class AccountCreationRequest implements typeInterface{
     public String getObjectId() {
         return objectId;
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getClassType() {
+        return classType;
+    }
+
 }

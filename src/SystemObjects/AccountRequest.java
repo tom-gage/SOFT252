@@ -5,13 +5,11 @@
  */
 package SystemObjects;
 
-import Users.typeInterface;
-
 /**
  *
  * @author Tom
  */
-public class AccountRequest implements typeInterface {
+public class AccountRequest implements ISystemObject {
 
     private String objectId;
     private String name, address;

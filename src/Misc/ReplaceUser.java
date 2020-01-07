@@ -19,7 +19,7 @@ public class ReplaceUser {
     public static void replaceUser(IUser user) throws IOException {
         ArrayList dataArray = DataHandler.readUserData();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);
 
             for (int x = 0; x < users.size(); x++) {

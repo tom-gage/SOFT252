@@ -60,6 +60,9 @@ public class ObjectIdGenerator {
             case "MedicineOrderRequest":
                 letterIdentifier = "MR";
                 break;
+            case "Message":
+                letterIdentifier = "MS";
+                break;
             default:
                 letterIdentifier = "?";
                 break;
@@ -166,8 +169,6 @@ public class ObjectIdGenerator {
                     largest = objectIdAsInt;
                 }
             }
-            
-            
 
         }
 
@@ -180,8 +181,6 @@ public class ObjectIdGenerator {
             }
 
         }
-
-
 
         newObjectId = letterIdentifier + Integer.toString(largest + 1);
         return newObjectId;
