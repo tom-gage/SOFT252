@@ -5,17 +5,19 @@
  */
 package GUI;
 
-import SystemObjects.Prescription;
-import SystemObjects.Medicine;
-import SystemObjects.Appointment;
-import SystemObjects.DoctorFeedback;
-import SystemObjects.AppointmentRequest;
 import DataHandler.DataHandler;
 import Misc.MessagerHandler;
+import Misc.ObjectIdGenerator;
+import Misc.UserIdGenerator;
 import SystemObjects.AccountCreationRequest;
 import SystemObjects.AccountDeletionRequest;
+import SystemObjects.Appointment;
+import SystemObjects.AppointmentRequest;
+import SystemObjects.DoctorFeedback;
+import SystemObjects.Medicine;
 import SystemObjects.MedicineOrderRequest;
 import SystemObjects.Message;
+import SystemObjects.Prescription;
 import Users.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +33,11 @@ public class LoginScreen extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public LoginScreen() {
+    public LoginScreen() throws IOException {
         initComponents();
+        btnNoAdmin.setVisible(false);
+        lblDefaultAdminMessage.setVisible(false);
+        checkNoAdmin();
     }
 
     /**
@@ -51,6 +56,8 @@ public class LoginScreen extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnNoAdmin = new javax.swing.JButton();
+        lblDefaultAdminMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,14 +68,11 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
 
-        txtUserName.setText("patient2");
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserNameActionPerformed(evt);
             }
         });
-
-        txtPassword.setText("password");
 
         btnCreateNewAccount.setText("Create New Account");
         btnCreateNewAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -83,36 +87,51 @@ public class LoginScreen extends javax.swing.JFrame {
 
         jLabel3.setText("Password:");
 
+        btnNoAdmin.setText("No Admin? Click here to create a new Admin");
+        btnNoAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoAdminActionPerformed(evt);
+            }
+        });
+
+        lblDefaultAdminMessage.setText("New admin created: Username is admin, Password is password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
+                        .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnLogin)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnLogin)
+                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(btnCreateNewAccount))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btnCreateNewAccount)))
-                .addContainerGap(190, Short.MAX_VALUE))
+                        .addGap(21, 21, 21)
+                        .addComponent(btnNoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDefaultAdminMessage))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(102, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -126,11 +145,36 @@ public class LoginScreen extends javax.swing.JFrame {
                 .addComponent(btnLogin)
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateNewAccount)
-                .addGap(64, 64, 64))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(btnNoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(lblDefaultAdminMessage)
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkNoAdmin() throws IOException {
+        ArrayList classes = DataHandler.readUserData();
+        ArrayList admins = (ArrayList) classes.get(0);
+        if (admins.isEmpty()) {//if no admins found
+            btnNoAdmin.setVisible(true);//default admin button  =  visable
+        }
+    }
+    
+    private void createDefaultAdmin() throws IOException{
+        ArrayList classes = DataHandler.readUserData();
+        ArrayList admins = (ArrayList) classes.get(0);
+        if (admins.isEmpty()) {
+            Administrator newAdmin = new Administrator(UserIdGenerator.generateUserId("Administrator"), "admin", "---", "admin", "password");//create new administrator
+            admins.add(newAdmin);
+            classes.set(0, admins);
+            DataHandler.writeUserData(classes);//save to file
+            lblDefaultAdminMessage.setVisible(true);
+        }
+        
+    }
 
     private void openUserScreen(IUser user) throws IOException {
 
@@ -156,14 +200,14 @@ public class LoginScreen extends javax.swing.JFrame {
         ArrayList dataArray = DataHandler.readUserData();
 
         for (int i = 0; i < 4; i++) {
-            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);
+            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);//for each user
 
             for (int x = 0; x < users.size(); x++) {
                 IUser user = users.get(x);
 
-                if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
+                if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {//check id username and password match those on file
 
-                    return user;
+                    return user;//return appropriate user
                 }
             }
         }
@@ -177,16 +221,16 @@ public class LoginScreen extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         String username = txtUserName.getText();
-        String password = txtPassword.getText();
+        String password = txtPassword.getText();//get credentials
 
         try {
 
-            IUser user = checkCredentials(username, password);
+            IUser user = checkCredentials(username, password);//check credentials
             if (user.equals(null)) {
                 //display error message
             } else {
                 setVisible(false);
-                openUserScreen(user);
+                openUserScreen(user);//opent user screen
             }
         } catch (IOException ex) {
             Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,6 +242,14 @@ public class LoginScreen extends javax.swing.JFrame {
         setVisible(false);
         new CreatePatientAccountRequestScreen().setVisible(true);
     }//GEN-LAST:event_btnCreateNewAccountActionPerformed
+
+    private void btnNoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoAdminActionPerformed
+        try {
+            createDefaultAdmin();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnNoAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,22 +278,23 @@ public class LoginScreen extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-        //TEST STUFF
+        
+        
+                //TEST STUFF
         String id = "0001";
         String name = "Jim";
         String address = "Jims house";
         String password = "password";
 
-        AccountCreationRequest accountCreationRequest = new AccountCreationRequest("AC1", "testName", "testAddress", "username", "password", 99, "male");
-        AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("AD2", "P6");
-        Appointment appointment = new Appointment("Ap3", "D2", "P6", "status: cancelled", "notes", "01/01/2000");
-        AppointmentRequest appointmentRequest = new AppointmentRequest("ar4", "D2", "P6", "02/02/2000", false);
-        DoctorFeedback docFeedback = new DoctorFeedback("DF5", "D2", "feedback title", "feedback details", 0);
+//        AccountCreationRequest accountCreationRequest = new AccountCreationRequest("AC1", "testName", "testAddress", "username", "password", 99, "male");
+//        AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest("AD2", "P6");
+//        Appointment appointment = new Appointment("Ap3", "D2", "P6", "status: cancelled", "notes", "01/01/2000");
+//        AppointmentRequest appointmentRequest = new AppointmentRequest("ar4", "D2", "P6", "02/02/2000", false);
+//        DoctorFeedback docFeedback = new DoctorFeedback("DF5", "D2", "feedback title", "feedback details", 0);
         Medicine medicine = new Medicine("Me6", "paracetemol", 0);
-        Prescription prescription = new Prescription("Pr7", "D2", "P6", "notes: fuck this", medicine, 100, 100);
+//        Prescription prescription = new Prescription("Pr7", "D2", "P6", "notes: fuck this", medicine, 100, 100);
 
-        MedicineOrderRequest orderRequest = new MedicineOrderRequest("MR8", medicine, 100);
+//        MedicineOrderRequest orderRequest = new MedicineOrderRequest("MR8", medicine, 100);
 
         Message testMessage = new Message("MS99", "TEST", "P6", "TEST TITLE", "TEST BODY");
 
@@ -250,8 +303,8 @@ public class LoginScreen extends javax.swing.JFrame {
         ArrayList appointmentHistory = new ArrayList();
         ArrayList prescriptions = new ArrayList();
         //fill patient array stuff
-        appointmentHistory.add(appointment);
-        prescriptions.add(prescription);
+//        appointmentHistory.add(appointment);
+//        prescriptions.add(prescription);
 
         //secretary stuff
         ArrayList appointmentRequests = new ArrayList();
@@ -260,10 +313,10 @@ public class LoginScreen extends javax.swing.JFrame {
         ArrayList medicineOrderRequests = new ArrayList();
 
         //filling secretary arrays
-        appointmentRequests.add(appointmentRequest);
-        accountCreationRequests.add(accountCreationRequest);
-        accountDeletionRequests.add(accountDeletionRequest);
-        medicineOrderRequests.add(orderRequest);
+//        appointmentRequests.add(appointmentRequest);
+//        accountCreationRequests.add(accountCreationRequest);
+//        accountDeletionRequests.add(accountDeletionRequest);
+//        medicineOrderRequests.add(orderRequest);
 
         //doctor stuff
         ArrayList feedback = new ArrayList();
@@ -273,21 +326,18 @@ public class LoginScreen extends javax.swing.JFrame {
         ArrayList messages = new ArrayList();
 
         //fill doctor arrays
-        feedback.add(docFeedback);
-        futureAppointments.add(appointment);
-        pastAppointments.add(appointment);
+//        feedback.add(docFeedback);
+//        futureAppointments.add(appointment);
+//        pastAppointments.add(appointment);
 
-        messages.add(testMessage);
+//        messages.add(testMessage);
 
         //initialise user mock objects
-        Administrator admin = new Administrator("A1", name, address, "admin1", password);
-        Administrator adminB = new Administrator("A2", name, address, "admin2", password);
-        Doctor doctor = new Doctor("D2", name, address, "doctor1", password, feedback, futureAppointments, pastAppointments, messages);
-        Doctor doctorB = new Doctor("D4", name, address, "doctor2", password, feedback, futureAppointments, pastAppointments, messages);
-        Patient patient = new Patient("P5", "patient p5", address, "patient1", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions, messages);
-        Patient patientB = new Patient("P6", "patient p6", address, "patient2", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions, messages);
-        Secretary secretary = new Secretary("S7", name, address, "secretary1", password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests, messages);
-        Secretary secretaryB = new Secretary("S8", name, address, "secretary2", password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests, messages);
+        
+        Administrator admin = new Administrator("A1", "Jefferson", "Jeff House", "admin1", password);
+        Doctor doctor = new Doctor("D2", "Dr Jim Jones", "12th street", "doctor1", password, feedback, futureAppointments, pastAppointments, messages);
+        Patient patient = new Patient("P5", "Sarah Jenkins", "13th street", "patient1", password, "Male", 10, futureAppointments, appointmentHistory, prescriptions, messages);
+        Secretary secretary = new Secretary("S7", "John Smith", "14th Street", "secretary1", password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests, messages);
 
         //data write stuff
         ArrayList<Administrator> administratorArray = new ArrayList();
@@ -297,19 +347,15 @@ public class LoginScreen extends javax.swing.JFrame {
         ArrayList<Medicine> medicineArray = new ArrayList();
 
         administratorArray.add(admin);
-        administratorArray.add(adminB);
-
+        
         doctorArray.add(doctor);
-        doctorArray.add(doctorB);
 
         patientArray.add(patient);
-        patientArray.add(patientB);
-
+        
         secretaryArray.add(secretary);
-        secretaryArray.add(secretaryB);
-
+        
         medicineArray.add(medicine);
-        medicineArray.add(medicine);
+        
 
         //classes array stuff
         ArrayList classesArray = new ArrayList();
@@ -340,14 +386,14 @@ public class LoginScreen extends javax.swing.JFrame {
 
         MessagerHandler.registerNewObservers();
 
-        Administrator testAdmin = adminTestArrayList.get(0);
-        Doctor testDoctor = doctorTestArrayList.get(0);
-        Patient testPatient = patientTestArrayList.get(0);
-        Secretary testSecretary = secretaryTestArrayList.get(0);
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginScreen().setVisible(true);
+                try {
+                    new LoginScreen().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -355,9 +401,11 @@ public class LoginScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateNewAccount;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnNoAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblDefaultAdminMessage;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables

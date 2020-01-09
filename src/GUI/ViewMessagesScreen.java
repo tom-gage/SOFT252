@@ -83,11 +83,13 @@ public class ViewMessagesScreen extends javax.swing.JFrame {
     }
 
     private void updateMessagesList(DefaultListModel model) {
-
-        for (int i = 0; i < messages.size(); i++) {
-            Message message = messages.get(i);
-            model.addElement(message.getMessageTitle());
+        if (!messages.isEmpty()) {
+            for (int i = 0; i < messages.size(); i++) {
+                Message message = messages.get(i);
+                model.addElement(message.getMessageTitle());
+            }
         }
+
     }
 
     private void closeScreen() throws IOException {

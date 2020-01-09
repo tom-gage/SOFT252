@@ -34,21 +34,20 @@ public class CreatePatientAccountRequestScreen extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         int age = Integer.parseInt(txtAge.getText());
-        String sex = txtSex.getText();
+        String sex = txtSex.getText();//get account request data
         
-        System.out.println(age);
 
-        AccountCreationRequest accCreationRequest = new AccountCreationRequest(objectId, name, address, username, password, age, sex);
+        AccountCreationRequest accCreationRequest = new AccountCreationRequest(objectId, name, address, username, password, age, sex);//create new account creation request
 
-        ArrayList dataArray = DataHandler.readUserData();
-        ArrayList<Secretary> secretaries = (ArrayList<Secretary>) dataArray.get(3);
+        ArrayList dataArray = DataHandler.readUserData();//get data from file
+        ArrayList<Secretary> secretaries = (ArrayList<Secretary>) dataArray.get(3);//get secretaries
 
         for (int i = 0; i < secretaries.size(); i++) {
-            secretaries.get(i).addAccountCreationRequest(accCreationRequest);
+            secretaries.get(i).addAccountCreationRequest(accCreationRequest);//add acc creation request to all secretaries
         }
 
-        dataArray.set(3, secretaries);
-        DataHandler.writeUserData(dataArray);
+        dataArray.set(3, secretaries);//overwrite secretaries
+        DataHandler.writeUserData(dataArray);//save to file
     }
 
     @SuppressWarnings("unchecked")
@@ -186,7 +185,11 @@ public class CreatePatientAccountRequestScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new LoginScreen().setVisible(true);
+        try {
+            new LoginScreen().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(CreatePatientAccountRequestScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 

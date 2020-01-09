@@ -48,30 +48,28 @@ public class GiveOutMedicineScreen extends javax.swing.JFrame {
 
     private void fufilPrescription() throws IOException {
 
-        prescription = prescriptions.get(lstPrescriptions.getSelectedIndex());
+        prescription = prescriptions.get(lstPrescriptions.getSelectedIndex());//get selected prescription
 
-        for (int i = 0; i < medicines.size(); i++) {
-            Medicine medicine = medicines.get(i);
-            Medicine prescribedMedicine = prescription.getMedicine();
-            if (medicine.getObjectId().equals(prescribedMedicine.getObjectId())) {
-                int newAmmount = medicine.getAmountInStock() - prescription.getQuantity();
-                medicine.setAmountInStock(newAmmount);
-                System.out.println(medicine.getAmountInStock());
-                medicines.set(i, medicine);
+        for (int i = 0; i < medicines.size(); i++) {//for each medicine
+            Medicine medicine = medicines.get(i);//get current medicine
+            Medicine prescribedMedicine = prescription.getMedicine();//get prescribed medicine
+            if (medicine.getObjectId().equals(prescribedMedicine.getObjectId())) {//if medicines are the same
+                int newAmmount = medicine.getAmountInStock() - prescription.getQuantity();//subtract prescription amount from amount in stock
+                medicine.setAmountInStock(newAmmount);//update amount in stock
+                medicines.set(i, medicine);//update medicine
             }
 
         }
 
-        dataArray.set(4, medicines);
-        
-        DataHandler.writeUserData(dataArray);
-        
-        
-        prescriptions.remove(lstPrescriptions.getSelectedIndex());
+        dataArray.set(4, medicines);//overwrite medicine array
 
-        patient.setPrescriptions(prescriptions);
+        DataHandler.writeUserData(dataArray);//save to file
 
-        ReplaceUser.replaceUser(patient);
+        prescriptions.remove(lstPrescriptions.getSelectedIndex());//remove prescription from array
+
+        patient.setPrescriptions(prescriptions);//update patient's prescriptions
+
+        ReplaceUser.replaceUser(patient);//save patient to file
 
     }
 
@@ -184,10 +182,13 @@ public class GiveOutMedicineScreen extends javax.swing.JFrame {
     }
 
     private void updatePrescriptionsList(DefaultListModel model) {
-        for (int i = 0; i < prescriptions.size(); i++) {
-            Prescription prescription = prescriptions.get(i);
-            model.addElement(prescription.getMedicine().getName() + " x " + prescription.getDosage());
+        if (!prescriptions.isEmpty()) {
+            for (int i = 0; i < prescriptions.size(); i++) {
+                Prescription prescription = prescriptions.get(i);
+                model.addElement(prescription.getMedicine().getName() + " x " + prescription.getDosage());
+            }
         }
+
     }
 
     /**

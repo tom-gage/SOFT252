@@ -17,20 +17,16 @@ import java.util.ArrayList;
 public class GetUserById {
 
     public static IUser getUserById(String userId) throws IOException {
-        ArrayList dataArray = DataHandler.readUserData();
+        ArrayList dataArray = DataHandler.readUserData();//get data from file
         
-        System.out.println("userId = "+userId);
 
-        for (int i = 0; i < 3; i++) {
-            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);
+        for (int i = 0; i < 4; i++) {//for each user array
+            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);//get users array
 
-            for (int x = 0; x < users.size(); x++) {
-                IUser user = users.get(x);
+            for (int x = 0; x < users.size(); x++) {//for each item in users array 
+                IUser user = users.get(x);//get user
                 
-                System.out.println("user " + i +" = "+ user.getUserId());
-                
-                if (user.getUserId().equals(userId)) {
-                    user.getName();
+                if (user.getUserId().equals(userId)) {//if user id are equal return user
                     
                     return user;
                 }

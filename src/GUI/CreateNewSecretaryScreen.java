@@ -35,28 +35,24 @@ public class CreateNewSecretaryScreen extends javax.swing.JFrame {
         String name = txtName.getText();
         String address = txtAddress.getText();
         String username = txtUsername.getText();
-        String password = txtPassword.getText();
+        String password = txtPassword.getText();//get new secretary data
 
-        ArrayList appointmentRequests = new ArrayList();
-        ArrayList accountCreationRequests = new ArrayList();
-        ArrayList accountDeletionRequests = new ArrayList();
-        ArrayList medicineOrderRequests = new ArrayList();
-        ArrayList messages = new ArrayList();
+        ArrayList empty = new ArrayList();
 
-        Secretary newSecretary = new Secretary(userId, name, address, username, password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests, messages);
+        //create new secretary
+        Secretary newSecretary = new Secretary(userId, name, address, username, password, empty, empty, empty, empty, empty);
 
-        ArrayList dataArray = DataHandler.readUserData();
+        ArrayList dataArray = DataHandler.readUserData();//get data from file
         ArrayList<Secretary> secretaryArray = (ArrayList<Secretary>) dataArray.get(3);
-        secretaryArray.add(newSecretary);
+        secretaryArray.add(newSecretary);//add to secretary array
 
-        dataArray.set(3, secretaryArray);
+        dataArray.set(3, secretaryArray);//overwrite secretary array
 
-        DataHandler.writeUserData(dataArray);
+        DataHandler.writeUserData(dataArray);//save to file
         
-        MessagerHandler.registerNewObservers();
 
         setVisible(false);
-        new AdminScreen().setVisible(true);
+        new AdminScreen().setVisible(true);//return to admin screen
     }
 
     /**

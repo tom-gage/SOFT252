@@ -41,18 +41,18 @@ public class UserIdGenerator {
         }
 
         for (int i = 0; i < 3; i++) {
-            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(0);
+            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(0);//get users arrays
 
-            for (int j = 0; j < users.size(); j++) {
+            for (int j = 0; j < users.size(); j++) {//for each user
                 IUser user = users.get(j);
                 int userIdAsInt = getUserIdAsInt(user.getUserId());
                 if (userIdAsInt > largest) {
-                    largest = userIdAsInt;
+                    largest = userIdAsInt;//get largest id
                 }
             }
         }
 
-        newUserId = letterIdentifier + Integer.toString(largest + 1);
+        newUserId = letterIdentifier + Integer.toString(largest + 1);//make new id
         return newUserId;
     }
 

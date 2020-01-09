@@ -78,7 +78,7 @@ public class ObjectIdGenerator {
 
         }
 
-        for (int i = 0; i < doctors.size(); i++) {
+        for (int i = 0; i < doctors.size(); i++) {//for each doctor, read systemObject arrays and get largest id as int
             Doctor doctor = doctors.get(i);
             ArrayList<DoctorFeedback> doctorFeedbacks = doctor.getFeedback();
             ArrayList<Appointment> futureAppointments = doctor.getFutureAppointments();
@@ -109,7 +109,7 @@ public class ObjectIdGenerator {
             }
         }
 
-        for (int i = 0; i < patients.size(); i++) {
+        for (int i = 0; i < patients.size(); i++) {//for each patient, read systemObject arrays and get largest id as int
             Patient patient = patients.get(i);
             ArrayList<Appointment> futureAppointments = patient.getFutureAppointments();
             ArrayList<Appointment> pastAppointments = patient.getAppointmentHistory();
@@ -140,7 +140,7 @@ public class ObjectIdGenerator {
             }
         }
 
-        for (int i = 0; i < secretaries.size(); i++) {
+        for (int i = 0; i < secretaries.size(); i++) {//for each secretary, read systemObject arrays and get largest id as int
             Secretary secretary = secretaries.get(i);
             ArrayList<AccountCreationRequest> accountCreationRequests = secretary.getAccountCreationRequests();
             ArrayList<AccountDeletionRequest> accountDeletionRequests = secretary.getAccountDeletionRequests();
@@ -172,7 +172,7 @@ public class ObjectIdGenerator {
 
         }
 
-        for (int i = 0; i < medicines.size(); i++) {
+        for (int i = 0; i < medicines.size(); i++) {////for each medicine, get largest id as int
             Medicine medicine = medicines.get(i);
 
             int objectIdAsInt = getObjectIdAsInt(medicine.getObjectId());
@@ -182,18 +182,18 @@ public class ObjectIdGenerator {
 
         }
 
-        newObjectId = letterIdentifier + Integer.toString(largest + 1);
-        return newObjectId;
+        newObjectId = letterIdentifier + Integer.toString(largest + 1);//increment largest id by one and add letter identifier
+        return newObjectId;//return new id
     }
 
-    private static int getObjectIdAsInt(String id) throws IOException {
+    private static int getObjectIdAsInt(String id) throws IOException {//in id
         int objectIdAsInt;
         StringBuilder objectId = new StringBuilder(id);
 
         objectId.deleteCharAt(0);
-        objectId.deleteCharAt(0);
+        objectId.deleteCharAt(0);//remove letter identifier
 
-        objectIdAsInt = Integer.parseInt(objectId.toString());
+        objectIdAsInt = Integer.parseInt(objectId.toString());//return as int
         return objectIdAsInt;
     }
 }

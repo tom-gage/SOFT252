@@ -51,18 +51,18 @@ public class PatientScreen extends javax.swing.JFrame {
     private void requestAccountTermination() throws IOException {
         String newObjectId = ObjectIdGenerator.generateObjectId("AccountDeletionRequest");
         String userId = patient.getUserId();
-        AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest(newObjectId, userId);
+        AccountDeletionRequest accountDeletionRequest = new AccountDeletionRequest(newObjectId, userId);//create new acc deletion request
 
         ArrayList dataArray = DataHandler.readUserData();
-        ArrayList<Secretary> secretaries = (ArrayList<Secretary>) dataArray.get(3);
+        ArrayList<Secretary> secretaries = (ArrayList<Secretary>) dataArray.get(3);//get secretaries
 
         for (int i = 0; i < secretaries.size(); i++) {
             Secretary secretary = secretaries.get(i);
-            secretary.addAccountDeletionRequest(accountDeletionRequest);
+            secretary.addAccountDeletionRequest(accountDeletionRequest);//add acc deletion request to all secretaries
         }
 
-        dataArray.set(3, secretaries);
-        DataHandler.writeUserData(dataArray);
+        dataArray.set(3, secretaries);//overwrite secretaries
+        DataHandler.writeUserData(dataArray);//save to file
     }
 
     private void refreshLists() {
@@ -88,27 +88,33 @@ public class PatientScreen extends javax.swing.JFrame {
     }
 
     private void updatePastAppointmentsList(DefaultListModel model) {
-
-        for (int i = 0; i < pastAppointments.size(); i++) {
-            Appointment appointment = pastAppointments.get(i);
-            model.addElement(patient.getName() + " - " + appointment.getAppointmentDate());
+        if (!pastAppointments.isEmpty()) {
+            for (int i = 0; i < pastAppointments.size(); i++) {
+                Appointment appointment = pastAppointments.get(i);
+                model.addElement(patient.getName() + " - " + appointment.getAppointmentDate());
+            }
         }
+
     }
 
     private void updateFutureAppointmentsList(DefaultListModel model) {
-
-        for (int i = 0; i < futureAppointments.size(); i++) {
-            Appointment appointment = futureAppointments.get(i);
-            model.addElement(patient.getName() + " - " + appointment.getAppointmentDate());
+        if (!futureAppointments.isEmpty()) {
+            for (int i = 0; i < futureAppointments.size(); i++) {
+                Appointment appointment = futureAppointments.get(i);
+                model.addElement(patient.getName() + " - " + appointment.getAppointmentDate());
+            }
         }
+
     }
 
     private void updatePrescriptionsList(DefaultListModel model) {
-
-        for (int i = 0; i < prescriptions.size(); i++) {
-            Prescription prescription = prescriptions.get(i);
-            model.addElement(prescription.getMedicine().getName()+ " x " + prescription.getDosage());
+        if (!prescriptions.isEmpty()) {
+            for (int i = 0; i < prescriptions.size(); i++) {
+                Prescription prescription = prescriptions.get(i);
+                model.addElement(prescription.getMedicine().getName() + " x " + prescription.getDosage());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -287,8 +293,8 @@ public class PatientScreen extends javax.swing.JFrame {
             Appointment appointment = pastAppointments.get(lstPastAppointments.getSelectedIndex());
             doctor = (Doctor) GetUserById.getUserById(appointment.getDoctorId());
             new ViewAppointmentScreen(patient, appointment, doctor).setVisible(true);
-        } catch (IOException ex) {
-            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+//            Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnViewPastAppointmentActionPerformed
 
@@ -346,7 +352,11 @@ public class PatientScreen extends javax.swing.JFrame {
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         setVisible(false);
-        new LoginScreen().setVisible(true);
+        try {
+            new LoginScreen().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(PatientScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

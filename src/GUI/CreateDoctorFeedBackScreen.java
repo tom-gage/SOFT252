@@ -35,10 +35,10 @@ public class CreateDoctorFeedBackScreen extends javax.swing.JFrame {
         this.patient = patient;
 
         this.dataArray = DataHandler.readUserData();
-        
-        SpinnerModel model = new SpinnerNumberModel(1, 0, 100,1);
+
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 100, 1);
         spnRating.setModel(model);
-        
+
         refreshLists();
     }
 
@@ -48,18 +48,18 @@ public class CreateDoctorFeedBackScreen extends javax.swing.JFrame {
         String docId = doctor.getUserId();
         String title = txtTitle.getText();
         String feedback = txtFeedbackNotes.getText();
-        int rating = (int) spnRating.getValue();
+        int rating = (int) spnRating.getValue();//get feedback data
 
-        DoctorFeedback newFeedback = new DoctorFeedback(objectId, docId, title, feedback, rating);
+        DoctorFeedback newFeedback = new DoctorFeedback(objectId, docId, title, feedback, rating);//create new feedback
 
-        doctor.addFeedback(newFeedback);
+        doctor.addFeedback(newFeedback);//add feedback to doctor
 
-        ReplaceUser.replaceUser(doctor);
+        ReplaceUser.replaceUser(doctor);//update new doctor with new feedback, write new doctor to file
 
-
+        //create new message
         Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "feedbackRecieved", docId, "Feedback recieved", "You have been provided with feedback, please contact your administrator to view it.");
         MessagerHandler.registerNewObservers();
-        MessagerHandler.messageUsers(newMessage);
+        MessagerHandler.messageUsers(newMessage);//send message
 
     }
 
@@ -76,17 +76,19 @@ public class CreateDoctorFeedBackScreen extends javax.swing.JFrame {
     }
 
     private void updateDoctorList(DefaultListModel model) {
-
-        for (int i = 0; i < doctors.size(); i++) {
-            Doctor doctor = doctors.get(i);
-            model.addElement(doctor.getName());
+        if (!doctors.isEmpty()) {
+            for (int i = 0; i < doctors.size(); i++) {
+                Doctor doctor = doctors.get(i);
+                model.addElement(doctor.getName());//add doctors to list component
+            }
         }
+
     }
 
     private void closeScreen() {
         setVisible(false);
         if ("Patient".equals(originatingUser.getClassType())) {
-            new PatientScreen((Patient) originatingUser).setVisible(true);
+            new PatientScreen((Patient) originatingUser).setVisible(true);//open patient screen
         }
     }
 

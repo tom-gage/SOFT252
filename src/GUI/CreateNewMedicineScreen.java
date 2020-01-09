@@ -36,12 +36,12 @@ public class CreateNewMedicineScreen extends javax.swing.JFrame {
     private void createNewMedicine() throws IOException{
         objectId = ObjectIdGenerator.generateObjectId("Medicine");
         System.out.println(objectId);
-        Medicine medicine = new Medicine(objectId, txtMedicineName.getText(), 0);
+        Medicine medicine = new Medicine(objectId, txtMedicineName.getText(), 0);//create new medicine
         
-        medicines.add(medicine);
-        dataArray.set(4, medicines);
+        medicines.add(medicine);//add new medicine
+        dataArray.set(4, medicines);//overwrite medicines array
         
-        DataHandler.writeUserData(dataArray);
+        DataHandler.writeUserData(dataArray);//save to file
         
     } 
 

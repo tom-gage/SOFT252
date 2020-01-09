@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import DataHandler.DataHandler;
+import Misc.GetUserById;
+import Misc.UserIdGenerator;
 import Users.IUser;
 import Users.Patient;
 
@@ -49,29 +51,15 @@ public class ViewAppointmentScreen extends javax.swing.JFrame {
     }
 
     private void populateLabels() throws IOException {
-
+        
         lblDoctor.setText(doctor.getName());
-        lblPatient.setText(findUsersNameById(appointment.getPatientId()));
+        Patient patient1 = (Patient) GetUserById.getUserById(appointment.getPatientId());
+        lblPatient.setText(patient1.getName());
         lblStatus.setText(appointment.getStatus());
         lblDate.setText(appointment.getAppointmentDate());
 
     }
 
-    private String findUsersNameById(String userId) throws IOException {
-        ArrayList dataArray = DataHandler.readUserData();
-
-        for (int i = 0; i < 3; i++) {
-            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);
-
-            for (int x = 0; x < users.size(); x++) {
-                IUser user = users.get(x);
-                if (user.getUserId().equals(userId)) {
-                    return user.getName();
-                }
-            }
-        }
-        return null;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

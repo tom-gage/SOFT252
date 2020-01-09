@@ -123,4 +123,30 @@ public class Doctor implements IUser, IObserver {
         this.messages = messages;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setFeedback(ArrayList<DoctorFeedback> feedback) {
+        this.feedback = feedback;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    
+
 }

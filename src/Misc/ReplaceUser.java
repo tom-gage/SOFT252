@@ -17,21 +17,21 @@ import java.util.ArrayList;
 public class ReplaceUser {
 
     public static void replaceUser(IUser user) throws IOException {
-        ArrayList dataArray = DataHandler.readUserData();
+        ArrayList dataArray = DataHandler.readUserData();//get data
 
-        for (int i = 0; i < 4; i++) {
-            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);
+        for (int i = 0; i < 4; i++) {//for each user array
+            ArrayList<IUser> users = (ArrayList<IUser>) dataArray.get(i);//get users array
 
-            for (int x = 0; x < users.size(); x++) {
-                IUser replacedUser = users.get(x);
-                if (user.getUserId().equals(replacedUser.getUserId())) {
-                    users.set(x, user);
+            for (int x = 0; x < users.size(); x++) {//for each user in users
+                IUser replacedUser = users.get(x);//get user
+                if (user.getUserId().equals(replacedUser.getUserId())) {//if id's match 
+                    users.set(x, user);//replace user
                 }
             }
             
-            dataArray.set(i, users);
+            dataArray.set(i, users);//overwrite
         }
         
-        DataHandler.writeUserData(dataArray);
+        DataHandler.writeUserData(dataArray);//save to file
     }
 }

@@ -52,24 +52,24 @@ public class CreateAppointmentRequestScreen extends javax.swing.JFrame {
         refreshLists();
     }
 
-    private void createAppointmentRequest() throws IOException {
-        String objectId = ObjectIdGenerator.generateObjectId("AppointmentRequest");
+    private void createAppointmentRequest() throws IOException {//create new appointment request
+        String objectId = ObjectIdGenerator.generateObjectId("AppointmentRequest");//get new object id
         doctor = doctors.get(lstDoctors.getSelectedIndex());
-        String doctorId = doctor.getUserId();
-        String patientId = patient.getUserId();
-        String date = spnDay.getValue() + "/" + spnMonth.getValue() + "/" + spnYear.getValue();
-        AppointmentRequest appointmentRequest = new AppointmentRequest(objectId, doctorId, patientId, date, false);
+        String doctorId = doctor.getUserId();//get doctor id
+        String patientId = patient.getUserId();//get patient id
+        String date = spnDay.getValue() + "/" + spnMonth.getValue() + "/" + spnYear.getValue();//get date
+        AppointmentRequest appointmentRequest = new AppointmentRequest(objectId, doctorId, patientId, date, false);//create new
 
         ArrayList<Secretary> secretaries = (ArrayList<Secretary>) dataArray.get(3);
 
         for (int i = 0; i < secretaries.size(); i++) {
             Secretary secretary = secretaries.get(i);
-            secretary.addAppointmentRequest(appointmentRequest);
+            secretary.addAppointmentRequest(appointmentRequest);//add new appointment request to all secretaries
 
         }
 
         dataArray.set(3, secretaries);
-        DataHandler.writeUserData(dataArray);
+        DataHandler.writeUserData(dataArray);//save to file
 
         for (int i = 0; i < secretaries.size(); i++) {
             String recipientId = secretaries.get(i).getUserId();
@@ -77,7 +77,7 @@ public class CreateAppointmentRequestScreen extends javax.swing.JFrame {
             Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "appointmentRequestApproved",
                     recipientId, "New Appointment Request", messageBody);
             MessagerHandler.registerNewObservers();
-            MessagerHandler.messageUsers(newMessage);
+            MessagerHandler.messageUsers(newMessage);//compose and publish message to secretaries
         }
 
     }
@@ -95,11 +95,13 @@ public class CreateAppointmentRequestScreen extends javax.swing.JFrame {
     }
 
     private void updateDoctorList(DefaultListModel model) {
-
-        for (int i = 0; i < doctors.size(); i++) {
-            Doctor doctor = doctors.get(i);
-            model.addElement(doctor.getName());
+        if (!doctors.isEmpty()) {
+            for (int i = 0; i < doctors.size(); i++) {
+                Doctor doctor = doctors.get(i);
+                model.addElement(doctor.getName());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -219,7 +221,7 @@ public class CreateAppointmentRequestScreen extends javax.swing.JFrame {
     private void closeScreen() {
         setVisible(false);
         if ("Patient".equals(originatingUser.getClassType())) {
-            new PatientScreen((Patient) originatingUser).setVisible(true);
+            new PatientScreen((Patient) originatingUser).setVisible(true);//return to patient screen
         }
     }
 

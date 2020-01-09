@@ -27,9 +27,9 @@ public class MessagerHandler {
 
         
         for (int i = 1; i < 4; i++) {
-            ArrayList<IObserver> users = (ArrayList<IObserver>) dataArray.get(i);
+            ArrayList<IObserver> users = (ArrayList<IObserver>) dataArray.get(i);//for each user
             for (int j = 0; j < users.size(); j++) {
-                Messager.registerObserver(users.get(j));
+                Messager.registerObserver(users.get(j));//register as listener
             }
         }
     }

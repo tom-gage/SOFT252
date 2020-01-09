@@ -129,6 +129,7 @@ public class SecretaryScreen extends javax.swing.JFrame {
         for (int i = 0; i < patients.size(); i++) {
             Patient tempPatient = patients.get(i);
             if (accountDeletionRequest.getUserId().equals(tempPatient.getUserId())) {
+                DeleteRelated.objects(tempPatient.getUserId());
                 patients.remove(i);
             }
 
@@ -214,8 +215,6 @@ public class SecretaryScreen extends javax.swing.JFrame {
 
         DataHandler.writeUserData(dataArray);
 
-        
-
         String objectId = ObjectIdGenerator.generateObjectId("Appointment");
         String doctorId = appointmentRequest.getDoctorId();
         String patientId = appointmentRequest.getPatientId();
@@ -227,10 +226,10 @@ public class SecretaryScreen extends javax.swing.JFrame {
 
         Doctor doctor = (Doctor) GetUserById.getUserById(appointmentRequest.getDoctorId());
         doctor.addAppointment(newAppointment);
-        
+
         Patient MPatient = (Patient) GetUserById.getUserById(appointmentRequest.getPatientId());
         MPatient.addAppointment(newAppointment);
-        
+
         ReplaceUser.replaceUser(doctor);
         ReplaceUser.replaceUser(MPatient);
 
@@ -299,64 +298,76 @@ public class SecretaryScreen extends javax.swing.JFrame {
     }
 
     private void updateAccCreationList(DefaultListModel model) {
+        if (!accountCreationRequests.isEmpty()) {
+            for (int i = 0; i < accountCreationRequests.size(); i++) {
+                AccountCreationRequest request = accountCreationRequests.get(i);
 
-        for (int i = 0; i < accountCreationRequests.size(); i++) {
-            AccountCreationRequest request = accountCreationRequests.get(i);
-            
-            model.addElement(request.getName());
+                model.addElement(request.getName());
+            }
         }
+
     }
 
     private void updateAccDeletionList(DefaultListModel model) {
-
-        for (int i = 0; i < accountDeletionRequests.size(); i++) {
-            try {
-                AccountDeletionRequest request = accountDeletionRequests.get(i);
-                Patient patient = (Patient) GetUserById.getUserById(request.getUserId());
-                model.addElement(patient.getUserId()+ " - " + patient.getName());
-            } catch (IOException ex) {
-                Logger.getLogger(SecretaryScreen.class.getName()).log(Level.SEVERE, null, ex);
+        if (!accountDeletionRequests.isEmpty()) {
+            for (int i = 0; i < accountDeletionRequests.size(); i++) {
+                try {
+                    AccountDeletionRequest request = accountDeletionRequests.get(i);
+                    Patient patient = (Patient) GetUserById.getUserById(request.getUserId());
+                    model.addElement(patient.getUserId() + " - " + patient.getName());
+                } catch (IOException ex) {
+                    Logger.getLogger(SecretaryScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
+
     }
 
     private void updateMedicineOrderRequestList(DefaultListModel model) {
+        if (!medicineOrderRequests.isEmpty()) {
+            for (int i = 0; i < medicineOrderRequests.size(); i++) {
+                MedicineOrderRequest request = medicineOrderRequests.get(i);
 
-        for (int i = 0; i < medicineOrderRequests.size(); i++) {
-            MedicineOrderRequest request = medicineOrderRequests.get(i);
-            
-            model.addElement(request.getMedicine().getName() + " x " + request.getAmountRequested());
+                model.addElement(request.getMedicine().getName() + " x " + request.getAmountRequested());
+            }
         }
+
     }
 
     private void updateAppointmentRequestList(DefaultListModel model) {
-
-        for (int i = 0; i < appointmentRequests.size(); i++) {
-            try {
+        if (!appointmentRequests.isEmpty()) {
+            for (int i = 0; i < appointmentRequests.size(); i++) {
                 AppointmentRequest request = appointmentRequests.get(i);
-                Patient patient = (Patient) GetUserById.getUserById(request.getPatientId());
-                Doctor doctor = (Doctor) GetUserById.getUserById(request.getDoctorId());
-                model.addElement(request.getAppointmentDate() + "(" + patient.getName() + " & " + doctor.getName() + ")");
-            } catch (IOException ex) {
-                Logger.getLogger(SecretaryScreen.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    Patient patient = (Patient) GetUserById.getUserById(request.getPatientId());
+                    Doctor doctor = (Doctor) GetUserById.getUserById(request.getDoctorId());
+                    model.addElement(request.getAppointmentDate() + "(" + patient.getName() + " & " + doctor.getName() + ")");
+                } catch (Exception e) {
+
+                }
             }
         }
+
     }
 
     private void updatePatientList(DefaultListModel model) {
-
-        for (int i = 0; i < patients.size(); i++) {
-            Patient patient = patients.get(i);
-            model.addElement(patient.getName());
+        if (!patients.isEmpty()) {
+            for (int i = 0; i < patients.size(); i++) {
+                Patient patient = patients.get(i);
+                model.addElement(patient.getName());
+            }
         }
+
     }
 
     private void updateDoctorList(DefaultListModel model) {
-
-        for (int i = 0; i < doctors.size(); i++) {
-            Doctor doctor = doctors.get(i);
-            model.addElement(doctor.getName());
+        if (!doctors.isEmpty()) {
+            for (int i = 0; i < doctors.size(); i++) {
+                Doctor doctor = doctors.get(i);
+                model.addElement(doctor.getName());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -736,7 +747,11 @@ public class SecretaryScreen extends javax.swing.JFrame {
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         setVisible(false);
-        new LoginScreen().setVisible(true);
+        try {
+            new LoginScreen().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(SecretaryScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

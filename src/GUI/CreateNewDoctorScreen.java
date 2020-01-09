@@ -30,27 +30,24 @@ public class CreateNewDoctorScreen extends javax.swing.JFrame {
     }
 
     private void createDoctor() throws IOException {
-        String userId = UserIdGenerator.generateUserId("Doctor");
+        String userId = UserIdGenerator.generateUserId("Doctor");//generate userID
         String name = txtName.getText();
         String address = txtAddress.getText();
         String username = txtUsername.getText();
-        String password = txtPassword.getText();
+        String password = txtPassword.getText();// get new doctor data 
 
-        ArrayList feedback = new ArrayList<>();
-        ArrayList futureAppointments = new ArrayList<>();
-        ArrayList pastAppointments = new ArrayList<>();
-        ArrayList messages = new ArrayList();
+        ArrayList empty = new ArrayList<>();
         
-        Doctor newDoctor = new Doctor(userId, name, address, username, password, feedback, futureAppointments, pastAppointments, messages);
+        Doctor newDoctor = new Doctor(userId, name, address, username, password, empty, empty, empty, empty);//// create new doctor, future, past appointment and messages arrays are empty
         
-        ArrayList dataArray = DataHandler.readUserData();
-        ArrayList<Doctor> doctorArray = (ArrayList<Doctor>) dataArray.get(1);
-        doctorArray.add(newDoctor);
+        ArrayList dataArray = DataHandler.readUserData();//get data
+        ArrayList<Doctor> doctorArray = (ArrayList<Doctor>) dataArray.get(1);//get doctor array
+        doctorArray.add(newDoctor);//add doctor to doctor array
         
-        dataArray.set(1, doctorArray);
+        dataArray.set(1, doctorArray);//overwrite doctor array
         
-        DataHandler.writeUserData(dataArray);
-        MessagerHandler.registerNewObservers();
+        DataHandler.writeUserData(dataArray);//write to file
+        
         
         setVisible(false);
         new AdminScreen().setVisible(true);

@@ -155,6 +155,44 @@ public class Secretary implements IUser, IObserver {
         return messages;
     }
 
+    public void setAccountCreationRequests(ArrayList<AccountCreationRequest> accountCreationRequests) {
+        this.accountCreationRequests = accountCreationRequests;
+    }
+
+    public void setAccountDeletionRequests(ArrayList<AccountDeletionRequest> accountDeletionRequests) {
+        this.accountDeletionRequests = accountDeletionRequests;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setAppointmentRequests(ArrayList<AppointmentRequest> appointmentRequests) {
+        this.appointmentRequests = appointmentRequests;
+    }
+
+    public void setMedicineOrderRequests(ArrayList<MedicineOrderRequest> medicineOrderRequests) {
+        this.medicineOrderRequests = medicineOrderRequests;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    
+
     @Override
     public void setMessages(ArrayList<Message> messages) {
         this.messages = messages;

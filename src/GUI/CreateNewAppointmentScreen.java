@@ -65,21 +65,20 @@ public class CreateNewAppointmentScreen extends javax.swing.JFrame {
         status = "pending";
         notes = "";
 
-        appointmentDate = spnDay.getValue() + "/" + spnMonth.getValue() + "/" + spnYear.getValue();
+        appointmentDate = spnDay.getValue() + "/" + spnMonth.getValue() + "/" + spnYear.getValue();//get new appointment data
 
-        System.out.println(objectId);
+        Appointment appointment = new Appointment(objectId, docId, patientId, status, notes, appointmentDate);//create new appointment
 
-        Appointment appointment = new Appointment(objectId, docId, patientId, status, notes, appointmentDate);
+        patient.addAppointment(appointment);//add to patient
+        doctor.addAppointment(appointment);//add to doctor
 
-        patient.addAppointment(appointment);
-        doctor.addAppointment(appointment);
+        ReplaceUser.replaceUser(doctor);//update doctor, write to file
+        ReplaceUser.replaceUser(patient);//update patient, write to file
 
-        ReplaceUser.replaceUser(doctor);
-        ReplaceUser.replaceUser(patient);
-
+        //compose message
         Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "newAppointmentCreated", patientId, "New Appointment", "You have been given a new appointment on " + appointmentDate);
         MessagerHandler.registerNewObservers();
-        MessagerHandler.messageUsers(newMessage);
+        MessagerHandler.messageUsers(newMessage);//send message
 
     }
 
@@ -185,13 +184,13 @@ public class CreateNewAppointmentScreen extends javax.swing.JFrame {
 
     private void closeScreen() {
         setVisible(false);
-        if ("Doctor".equals(originatingUser.getClassType())) {
+        if ("Doctor".equals(originatingUser.getClassType())) {//return to doctor screen
             try {
                 new DoctorScreen(doctor).setVisible(true);
             } catch (IOException ex) {
                 Logger.getLogger(CreateNewAppointmentScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if ("Secretary".equals(originatingUser.getClassType())) {
+        } else if ("Secretary".equals(originatingUser.getClassType())) {//return to secretary screen
             try {
                 new SecretaryScreen((Secretary) originatingUser).setVisible(true);
             } catch (IOException ex) {

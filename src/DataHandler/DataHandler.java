@@ -30,27 +30,24 @@ import java.net.URL;
 public class DataHandler {
 
     
-    
-//    static String filePath = "C:\\Users\\Tom\\Documents\\SOFT252\\src\\Data\\data.json";
     static String filePath = "./data.json";
 
     public static ArrayList readUserData() throws FileNotFoundException, IOException {
-        Gson gson = new Gson();
-
+        
         File data = new File(filePath);
-        InputStream in;
-        in = new FileInputStream(data);
+
+        InputStream in = new FileInputStream(data);
 
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
 
         ArrayList classesArray = readClassesArray(reader);
-
-//        System.out.println(classesArray);
+        
+        
         return classesArray;
 
     }
 
-    private static ArrayList readClassesArray(JsonReader reader) throws IOException {
+    public static ArrayList readClassesArray(JsonReader reader) throws IOException {
         ArrayList classesArray = new ArrayList();
         reader.beginArray();
         while (reader.hasNext()) {
@@ -60,7 +57,7 @@ public class DataHandler {
         return classesArray;
     }
 
-    private static ArrayList<IUser> readUserClassArray(JsonReader reader) throws IOException {
+    public static ArrayList<IUser> readUserClassArray(JsonReader reader) throws IOException {
         ArrayList classArray = new ArrayList();
         reader.beginArray();
         while (reader.hasNext()) {
@@ -70,16 +67,14 @@ public class DataHandler {
         return classArray;
     }
 
-    private static IUser readUserClass(JsonReader reader) throws IOException {
+    public static IUser readUserClass(JsonReader reader) throws IOException {
         String classType = "";
         IUser userClass = null;
         reader.beginObject();
         while (reader.hasNext()) {
 
-//            System.out.println(reader.nextName());
             reader.nextName();
             classType = reader.nextString();
-//            System.out.println(classType);
 
             if (classType.equals("Administrator")) {
                 userClass = readAdministrator(reader);
@@ -99,7 +94,7 @@ public class DataHandler {
         return userClass;
     }
 
-    private static ArrayList<ISystemObject> readSystemObjectClassArray(JsonReader reader) throws IOException {
+    public static ArrayList<ISystemObject> readSystemObjectClassArray(JsonReader reader) throws IOException {
         ArrayList classArray = new ArrayList();
         reader.beginArray();
         while (reader.hasNext()) {
@@ -109,16 +104,14 @@ public class DataHandler {
         return classArray;
     }
 
-    private static ISystemObject readSystemObjectClass(JsonReader reader) throws IOException {
+    public static ISystemObject readSystemObjectClass(JsonReader reader) throws IOException {
         String classType = "";
         ISystemObject systemClass = null;
         reader.beginObject();
         while (reader.hasNext()) {
 
-//            System.out.println(reader.nextName());
             reader.nextName();
             classType = reader.nextString();
-//            System.out.println(classType);
 
             if (classType.equals("AccountCreationRequest")) {
                 systemClass = readAccountCreationRequest(reader);
@@ -147,7 +140,7 @@ public class DataHandler {
         return systemClass;
     }
 
-    private static IUser readAdministrator(JsonReader reader) throws IOException {
+    public static IUser readAdministrator(JsonReader reader) throws IOException {
         String userId = null;
         String name = null;
         String address = null;
@@ -176,7 +169,7 @@ public class DataHandler {
         return new Administrator(userId, name, address, username, password);
     }
 
-    private static IUser readDoctor(JsonReader reader) throws IOException {
+    public static IUser readDoctor(JsonReader reader) throws IOException {
         String userId = null;
         String name = null;
         String address = null;
@@ -209,6 +202,8 @@ public class DataHandler {
                 pastAppointments = readSystemObjectClassArray(reader);
             } else if (nameValue.equals("messages")) {
                 messages = readSystemObjectClassArray(reader);
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -216,7 +211,7 @@ public class DataHandler {
         return new Doctor(userId, name, address, username, password, feedback, futureAppointments, pastAppointments, messages);
     }
 
-    private static IUser readPatient(JsonReader reader) throws IOException {
+    public static IUser readPatient(JsonReader reader) throws IOException {
         String userId = null;
         String name = null;
         String address = null;
@@ -265,7 +260,7 @@ public class DataHandler {
         return new Patient(userId, name, address, username, password, sex, age, futureAppointments, appointmentHistory, prescriptions, messages);
     }
 
-    private static IUser readSecretary(JsonReader reader) throws IOException {
+    public static IUser readSecretary(JsonReader reader) throws IOException {
         String userId = null;
         String name = null;
         String address = null;
@@ -303,6 +298,8 @@ public class DataHandler {
                 medicineOrderRequests = readSystemObjectClassArray(reader);
             } else if (nameValue.equals("messages")) {
                 messages = readSystemObjectClassArray(reader);
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -310,7 +307,7 @@ public class DataHandler {
         return new Secretary(userId, name, address, username, password, appointmentRequests, accountCreationRequests, accountDeletionRequests, medicineOrderRequests, messages);
     }
 
-    private static ISystemObject readAccountCreationRequest(JsonReader reader) throws IOException {
+    public static ISystemObject readAccountCreationRequest(JsonReader reader) throws IOException {
         String objectId = null;
         String name = null;
         String address = null;
@@ -337,6 +334,8 @@ public class DataHandler {
                 age = reader.nextInt();
             } else if (nameValue.equals("sex")) {
                 sex = reader.nextString();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -344,7 +343,7 @@ public class DataHandler {
         return new AccountCreationRequest(objectId, name, address, username, password, age, sex);
     }
 
-    private static ISystemObject readAccountDeletionRequest(JsonReader reader) throws IOException {
+    public static ISystemObject readAccountDeletionRequest(JsonReader reader) throws IOException {
         String objectId = null;
         String userId = null;
 
@@ -355,6 +354,8 @@ public class DataHandler {
                 objectId = reader.nextString();
             } else if (nameValue.equals("userId")) {
                 userId = reader.nextString();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -363,7 +364,7 @@ public class DataHandler {
 
     }
 
-    private static ISystemObject readAccountRequest(JsonReader reader) throws IOException {
+    public static ISystemObject readAccountRequest(JsonReader reader) throws IOException {
         String objectId = null;
         String name = null;
         String address = null;
@@ -377,6 +378,8 @@ public class DataHandler {
                 name = reader.nextString();
             } else if (nameValue.equals("address")) {
                 address = reader.nextString();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -385,7 +388,7 @@ public class DataHandler {
 
     }
 
-    private static ISystemObject readAppointment(JsonReader reader) throws IOException {
+    public static ISystemObject readAppointment(JsonReader reader) throws IOException {
         String objectId = null;
         String doctorId = null;
         String patientId = null;
@@ -408,6 +411,8 @@ public class DataHandler {
                 notes = reader.nextString();
             } else if (nameValue.equals("appointmentDate")) {
                 appointmentDate = reader.nextString(); //PLACEHOLDER
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -415,7 +420,7 @@ public class DataHandler {
 
     }
 
-    private static ISystemObject readAppointmentRequest(JsonReader reader) throws IOException {
+    public static ISystemObject readAppointmentRequest(JsonReader reader) throws IOException {
         String objectId = null;
         String doctorId = null;
         String patientId = null;
@@ -435,14 +440,16 @@ public class DataHandler {
                 appointmentDate = reader.nextString();
             } else if (nameValue.equals("approved")) {
                 approved = reader.nextBoolean();
+            } else {
+                reader.skipValue();
             }
-
+ 
         }
         return new AppointmentRequest(objectId, doctorId, patientId, appointmentDate, approved);
 
     }
 
-    private static ISystemObject readDoctorFeedback(JsonReader reader) throws IOException {
+    public static ISystemObject readDoctorFeedback(JsonReader reader) throws IOException {
         String objectId = null;
         String doctorId = null;
         String title = null;
@@ -463,6 +470,8 @@ public class DataHandler {
                 title = reader.nextString();
             } else if (nameValue.equals("rating")) {
                 rating = reader.nextInt();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -470,7 +479,7 @@ public class DataHandler {
 
     }
 
-    private static IUser readMedicine(JsonReader reader) throws IOException {
+    public static IUser readMedicine(JsonReader reader) throws IOException {
         String objectId = null;
         String name = null;
         int amountInStock = -1;
@@ -485,6 +494,8 @@ public class DataHandler {
                 name = reader.nextString();
             } else if (nameValue.equals("amountInStock")) {
                 amountInStock = reader.nextInt();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -492,7 +503,7 @@ public class DataHandler {
 
     }
 
-    private static ISystemObject readPrescription(JsonReader reader) throws IOException {
+    public static ISystemObject readPrescription(JsonReader reader) throws IOException {
         String objectId = null;
         String doctorId = null;
         String patientId = null;
@@ -520,6 +531,8 @@ public class DataHandler {
                 quantity = reader.nextInt();
             } else if (nameValue.equals("dosage")) {
                 dosage = reader.nextInt();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -527,7 +540,7 @@ public class DataHandler {
 
     }
 
-    private static ISystemObject readMedicineOrderRequest(JsonReader reader) throws IOException {
+    public static ISystemObject readMedicineOrderRequest(JsonReader reader) throws IOException {
         String objectId = null;
 
         Medicine medicine = null;
@@ -543,6 +556,8 @@ public class DataHandler {
                 medicine = (Medicine) readUserClass(reader);
             } else if (nameValue.equals("amountRequested")) {
                 amountRequested = reader.nextInt();
+            } else {
+                reader.skipValue();
             }
 
         }
@@ -550,7 +565,7 @@ public class DataHandler {
 
     }
 
-    private static ISystemObject readMessage(JsonReader reader) throws IOException {
+    public static ISystemObject readMessage(JsonReader reader) throws IOException {
         String objectId = null;
         String messageType = null;
         String messageUserId = null;
@@ -570,6 +585,8 @@ public class DataHandler {
                 messageTitle = reader.nextString();
             } else if (nameValue.equals("messageBody")) {
                 messageBody = reader.nextString();
+            } else {
+                reader.skipValue();
             }
 
         }
