@@ -41,35 +41,34 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
         dataArray = DataHandler.readUserData();
         medicines = (ArrayList<Medicine>) dataArray.get(4);
         secretaries = (ArrayList<Secretary>) dataArray.get(3);
-        
-        SpinnerModel model = new SpinnerNumberModel(1, 0, 100,1);
+
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 100, 1);
         spnQuantity.setModel(model);
-        
+
         refreshLists();
     }
 
     private void createNewMedicineRequest() throws IOException {
         medicine = medicines.get(lstMedicines.getSelectedIndex());
         amountRequested = (int) spnQuantity.getValue();
-        objectId = ObjectIdGenerator.generateObjectId("MedicineOrderRequest");
-        MedicineOrderRequest medicineOrderRequest = new MedicineOrderRequest(objectId, medicine, amountRequested);
+        objectId = ObjectIdGenerator.generateObjectId("MedicineOrderRequest");//get data
+        MedicineOrderRequest medicineOrderRequest = new MedicineOrderRequest(objectId, medicine, amountRequested);//create new medicine order request
 
         for (int i = 0; i < secretaries.size(); i++) {
             Secretary secretary = secretaries.get(i);
-            secretary.addMedicineOrderRequest(medicineOrderRequest);
+            secretary.addMedicineOrderRequest(medicineOrderRequest);//add new medicineOrderRequest to all secretaries
             secretaries.set(i, secretary);
         }
 
-        dataArray.set(3, secretaries);
-
-        DataHandler.writeUserData(dataArray);
+        dataArray.set(3, secretaries);//overwrite secretaries
+        DataHandler.writeUserData(dataArray);//write to file
 
         for (int i = 0; i < secretaries.size(); i++) {
             String recipientId = secretaries.get(i).getUserId();
             Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "newMedicineRequestRecieved",
-                    recipientId, "New Medicine Order Request", "An order of: " + medicine.getName() + " x " + amountRequested + " has been requested.");
+                    recipientId, "New Medicine Order Request", "An order of: " + medicine.getName() + " x " + amountRequested + " has been requested.");//compose new message
             MessagerHandler.registerNewObservers();
-            MessagerHandler.messageUsers(newMessage);
+            MessagerHandler.messageUsers(newMessage);//publish message
         }
 
     }
@@ -85,11 +84,13 @@ public class CreateNewMedicineRequestScreen extends javax.swing.JFrame {
     }
 
     private void updateMedicineList(DefaultListModel model) {
-
-        for (int i = 0; i < medicines.size(); i++) {
-            Medicine medicine = medicines.get(i);
-            model.addElement(medicine.getName());
+        if (!medicines.isEmpty()) {
+            for (int i = 0; i < medicines.size(); i++) {
+                Medicine medicine = medicines.get(i);
+                model.addElement(medicine.getName());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")

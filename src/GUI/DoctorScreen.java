@@ -49,7 +49,7 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     private void messageAlert() {
         int unread = doctor.getMessages().size();
-        String messageAlert = "You have " + unread + " unread messages!";
+        String messageAlert = "You have " + unread + " unread messages!";//update amount of unread messages
         lblMessageAlert.setText(messageAlert);
     }
 
@@ -69,33 +69,43 @@ public class DoctorScreen extends javax.swing.JFrame {
         lstPastAppointments.setSelectedIndex(0);
         lstFutureAppointments.setSelectedIndex(0);
         lstPatients.setSelectedIndex(0);
+
     }
 
     private void populatePastAppointmentsList(DefaultListModel model) {
-        for (int i = 0; i < pastAppointments.size(); i++) {
-            try {
-                Appointment appointment = pastAppointments.get(i);
-                Patient patient = (Patient) GetUserById.getUserById(appointment.getPatientId());
-                model.addElement(appointment.getAppointmentDate() + " - " + patient.getName());
-            } catch (IOException ex) {
-                Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+        if (!pastAppointments.isEmpty()) {
+            for (int i = 0; i < pastAppointments.size(); i++) {
+                try {
+                    Appointment appointment = pastAppointments.get(i);
+                    Patient patient = (Patient) GetUserById.getUserById(appointment.getPatientId());
+                    model.addElement(appointment.getAppointmentDate() + " - " + patient.getName());
+                } catch (IOException ex) {
+                    Logger.getLogger(DoctorScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
+
     }
 
     private void populateFutureAppointmentsList(DefaultListModel model) throws IOException {
-        for (int i = 0; i < futureAppointments.size(); i++) {
-            Appointment appointment = futureAppointments.get(i);
-            Patient patient = (Patient) GetUserById.getUserById(appointment.getPatientId());
-            model.addElement(appointment.getAppointmentDate() + " - " + patient.getName());
+        if (!futureAppointments.isEmpty()) {
+            for (int i = 0; i < futureAppointments.size(); i++) {
+                Appointment appointment = futureAppointments.get(i);
+                Patient patient = (Patient) GetUserById.getUserById(appointment.getPatientId());
+                model.addElement(appointment.getAppointmentDate() + " - " + patient.getName());
+            }
         }
+
     }
 
     private void populatePatientsList(DefaultListModel model) {
-        for (int i = 0; i < patients.size(); i++) {
-            Patient patient = patients.get(i);
-            model.addElement(patient.getName());
+        if (!patients.isEmpty()) {
+            for (int i = 0; i < patients.size(); i++) {
+                Patient patient = patients.get(i);
+                model.addElement(patient.getName());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -303,11 +313,11 @@ public class DoctorScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCreateAppointment)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogOut)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnViewMessages)
-                        .addComponent(lblMessageAlert)))
+                        .addComponent(lblMessageAlert))
+                    .addComponent(btnLogOut))
                 .addContainerGap())
         );
 
@@ -388,7 +398,12 @@ public class DoctorScreen extends javax.swing.JFrame {
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         setVisible(false);
-        new LoginScreen().setVisible(true);
+        try {
+            new LoginScreen().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(SecretaryScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

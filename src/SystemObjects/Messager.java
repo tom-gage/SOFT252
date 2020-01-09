@@ -19,8 +19,7 @@ public class Messager implements IObservable {
     public ArrayList testArray = new ArrayList<>();
     
     public Messager(){
-//        observers = new ArrayList<Observer>();
-//        testArray = new ArrayList();
+        
     }
 
     public static void registerObserver(IObserver observer) {

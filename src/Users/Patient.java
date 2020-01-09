@@ -50,6 +50,10 @@ public class Patient implements IUser, IObserver {
         this.messages = messages;
     }
 
+    public Patient() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void addAppointment(Appointment appointment) {
         futureAppointments.add(appointment);
     }
@@ -152,6 +156,7 @@ public class Patient implements IUser, IObserver {
         return messages;
     }
 
+    
     @Override
     public void setMessages(ArrayList<Message> messages) {
         this.messages = messages;

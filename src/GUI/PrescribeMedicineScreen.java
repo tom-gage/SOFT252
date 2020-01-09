@@ -53,10 +53,15 @@ public class PrescribeMedicineScreen extends javax.swing.JFrame {
         this.dataArray = DataHandler.readUserData();
         this.medicineArray = (ArrayList<Medicine>) dataArray.get(4);
 
-        SpinnerModel model = new SpinnerNumberModel(1, 0, 100,1);
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 100, 1);
         spnDosage.setModel(model);
         spnQuantity.setModel(model);
-    
+        
+        refreshLists();
+        
+        if(medicineArray.isEmpty()){
+            btnCreatePrescription.setEnabled(false);
+        }
 
     }
 
@@ -72,19 +77,19 @@ public class PrescribeMedicineScreen extends javax.swing.JFrame {
         doctorNotes = txtPrescriptionNotes.getText();
 
         dosage = (int) spnDosage.getValue();
-        quantity = (int) spnQuantity.getValue();
+        quantity = (int) spnQuantity.getValue();//get prescription data
 
+        //create new prescription
         Prescription prescription = new Prescription(prescriptionId, doctorId, patientId, doctorNotes, medicine, quantity, dosage);
 
-        System.out.println(prescription.getObjectId());
+        patient.addPrescription(prescription);//add prescription to patient
 
-        patient.addPrescription(prescription);
+        ReplaceUser.replaceUser(patient);//update patient, save to file
 
-        ReplaceUser.replaceUser(patient);
-
+        //compose message
         Message newMessage = new Message(ObjectIdGenerator.generateObjectId("Message"), "newPrescriptionRecieved", patientId, "New Precription", "You have recieved a new prescription for " + medicine.getName() + ".");
         MessagerHandler.registerNewObservers();
-        MessagerHandler.messageUsers(newMessage);
+        MessagerHandler.messageUsers(newMessage);//publish message
 
     }
 
@@ -99,11 +104,13 @@ public class PrescribeMedicineScreen extends javax.swing.JFrame {
     }
 
     private void updateMedicineslist(DefaultListModel model) {
-
-        for (int i = 0; i < medicineArray.size(); i++) {
-            Medicine medicine = medicineArray.get(i);
-            model.addElement(medicine.getName());
+        if (!medicineArray.isEmpty()) {
+            for (int i = 0; i < medicineArray.size(); i++) {
+                Medicine medicine = medicineArray.get(i);
+                model.addElement(medicine.getName());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")

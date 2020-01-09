@@ -4,35 +4,53 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/DataHandler/DataHandler.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/typeInterface.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Patient.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/AdminHandler/AdminHandler.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ConductAppointmentScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ViewDoctorScreen.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/Message.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Administrator.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Misc/ObjectIdGenerator.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/DataHandler/data.json</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateAppointmentRequestScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/Medicine.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/AdminScreen.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/SecretaryScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateNewMedicineScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/AccountCreationRequest.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ViewAppointmentScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ProvideDoctorFeedBackScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/PrescribeMedicineScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/test/test/DataHandler/Factory.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/Messager.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/IUser.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/GiveOutMedicineScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/Prescription.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/test/test/DataHandler/DataHandlerTest.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateNewAppointmentScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Misc/ReplaceUser.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Misc/GetUserById.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Doctor.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Secretary.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateNewSecretaryScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/DoctorFeedback.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ViewMessagesScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Patient.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/test/test/DataHandler/MockUser.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/AccountDeletionRequest.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Administrator.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Misc/ObjectIdGenerator.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/AccountRequest.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateDoctorFeedBackScreen.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ViewPatientScreen.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ProvideDoctorFeedBackScreen.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateNewMedicineRequestScreen.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/PrescribeMedicineScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/Appointment.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/DoctorScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/ISystemObject.java</file>
             <file>jar:file:/C:/Users/Tom/Documents/SOFT252/lib/Gson/gson-2.8.0-sources.jar!/com/google/gson/stream/JsonReader.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/Misc/MessagerHandler.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/AppointmentRequest.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreatePatientAccountRequestScreen.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/LoginHandler/LoginHandler.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/User.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Data/data.json</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/LoginScreen.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/Messager.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/IUser.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/ViewPrescriptionScreen.java</file>
+            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateNewDoctorScreen.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/PatientScreen.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/GUI/CreateNewAppointmentScreen.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Misc/ReplaceUser.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Doctor.java</file>
-            <file>file:/C:/Users/Tom/Documents/SOFT252/src/Users/Secretary.java</file>
             <file>file:/C:/Users/Tom/Documents/SOFT252/src/SystemObjects/MedicineOrderRequest.java</file>
         </group>
     </open-files>

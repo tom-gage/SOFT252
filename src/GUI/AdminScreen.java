@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import Misc.*;
 
 /**
  *
@@ -26,9 +27,9 @@ public class AdminScreen extends javax.swing.JFrame {
     ArrayList<Secretary> secretaryArray;
 
     public AdminScreen() throws IOException {
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
 
+        //get data from file, put into arrayLists
         this.dataArray = DataHandler.readUserData();
         this.doctorArray = (ArrayList<Doctor>) dataArray.get(1);
         this.secretaryArray = (ArrayList<Secretary>) dataArray.get(3);
@@ -45,44 +46,53 @@ public class AdminScreen extends javax.swing.JFrame {
 
         updateDoctorList(doctorListModel);
         updateSecretaryList(secretaryListModel);
-        
+
         lstDoctors.setSelectedIndex(0);
         lstSecretarys.setSelectedIndex(0);
+
     }
 
     private void updateDoctorList(DefaultListModel model) {
-
-        for (int i = 0; i < doctorArray.size(); i++) {
-            Doctor doctor = doctorArray.get(i);
-            model.addElement(doctor.getName());
+        if (!doctorArray.isEmpty()) {
+            for (int i = 0; i < doctorArray.size(); i++) {
+                Doctor doctor = doctorArray.get(i);
+                model.addElement(doctor.getName());
+            }
         }
+
     }
 
     private void updateSecretaryList(DefaultListModel model) {
-
-        for (int i = 0; i < secretaryArray.size(); i++) {
-            Secretary secretary = secretaryArray.get(i);
-            model.addElement(secretary.getName());
+        if (!secretaryArray.isEmpty()) {
+            for (int i = 0; i < secretaryArray.size(); i++) {
+                Secretary secretary = secretaryArray.get(i);
+                model.addElement(secretary.getName());
+            }
         }
+
     }
 
     private void deleteDoctor() throws IOException {
         int selectedDoctor = lstDoctors.getSelectedIndex();
-        doctorArray.remove(selectedDoctor);
-        
-        dataArray.set(1, doctorArray);
-        DataHandler.writeUserData(dataArray);
-        
+        Doctor doctor = doctorArray.get(lstDoctors.getSelectedIndex());
+        DeleteRelated.objects(doctor.getUserId());//this is super important for maintaining data intergrity, it deletes all objects associated with the user
+        doctorArray.remove(selectedDoctor);//remove selected doctor from doctors array
+
+        dataArray.set(1, doctorArray);//overwrite original doctors array
+        DataHandler.writeUserData(dataArray);//write data to file
+
         refreshLists();
     }
 
     private void deleteSecretary() throws IOException {
         int selectedSecretary = lstSecretarys.getSelectedIndex();
-        secretaryArray.remove(selectedSecretary);
-        
-        dataArray.set(3, secretaryArray);
-        DataHandler.writeUserData(dataArray);
-        
+        Secretary secretary = secretaryArray.get(lstSecretarys.getSelectedIndex());
+        DeleteRelated.objects(secretary.getUserId());//this is super important for maintaining data intergrity, it deletes all objects associated with the user
+        secretaryArray.remove(selectedSecretary);//remove selected secretary from secretaries array
+
+        dataArray.set(3, secretaryArray);//overwrite original
+        DataHandler.writeUserData(dataArray);//write to file
+
         refreshLists();
     }
 
@@ -238,7 +248,7 @@ public class AdminScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateDoctorActionPerformed
-        new CreateNewDoctorScreen().setVisible(true);
+        new CreateNewDoctorScreen().setVisible(true);//open new create doctor screeen
         setVisible(false);
     }//GEN-LAST:event_btnCreateDoctorActionPerformed
 
@@ -266,24 +276,28 @@ public class AdminScreen extends javax.swing.JFrame {
 
     private void btnViewDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDoctorActionPerformed
         int selectedDoctor = lstDoctors.getSelectedIndex();
-        Doctor doctor = doctorArray.get(selectedDoctor);
-        new ViewDoctorScreen(doctor).setVisible(true);
+        Doctor doctor = doctorArray.get(selectedDoctor);//get selected doctor
+        new ViewDoctorScreen(doctor).setVisible(true);//open view doctor screen
         setVisible(false);
     }//GEN-LAST:event_btnViewDoctorActionPerformed
 
     private void btnSetFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetFeedbackActionPerformed
         setVisible(false);
         try {
-            new ProvideDoctorFeedBackScreen().setVisible(true);
+            new ProvideDoctorFeedBackScreen().setVisible(true);//open new create feedback screen
         } catch (IOException ex) {
             Logger.getLogger(AdminScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_btnSetFeedbackActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         setVisible(false);
-        new LoginScreen().setVisible(true);
+        try {
+            new LoginScreen().setVisible(true);//return to login screen
+        } catch (IOException ex) {
+            Logger.getLogger(AdminScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**

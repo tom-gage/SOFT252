@@ -79,26 +79,33 @@ public class ViewPatientScreen extends javax.swing.JFrame {
     }
 
     private void updatePastAppointmentsList(DefaultListModel model) {
-
-        for (int i = 0; i < pastApointments.size(); i++) {
-            Appointment appointment = pastApointments.get(i);
-            model.addElement(appointment.getPatientId());
+        if (!pastApointments.isEmpty()) {
+            for (int i = 0; i < pastApointments.size(); i++) {
+                Appointment appointment = pastApointments.get(i);
+                model.addElement(appointment.getPatientId());
+            }
         }
+
     }
 
     private void updateFutureAppointmentsList(DefaultListModel model) {
-
-        for (int i = 0; i < futureAppointments.size(); i++) {
-            Appointment appointment = futureAppointments.get(i);
-            model.addElement(appointment.getPatientId());
+        if (!futureAppointments.isEmpty()) {
+            for (int i = 0; i < futureAppointments.size(); i++) {
+                Appointment appointment = futureAppointments.get(i);
+                model.addElement(appointment.getPatientId());
+            }
         }
+
     }
 
     private void updatePrescriptionsList(DefaultListModel model) {
-        for (int i = 0; i < prescriptions.size(); i++) {
-            Prescription prescription = prescriptions.get(i);
-            model.addElement(prescription.getObjectId());
+        if (!prescriptions.isEmpty()) {
+            for (int i = 0; i < prescriptions.size(); i++) {
+                Prescription prescription = prescriptions.get(i);
+                model.addElement(prescription.getObjectId());
+            }
         }
+
     }
 
     @SuppressWarnings("unchecked")

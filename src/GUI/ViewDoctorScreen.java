@@ -43,7 +43,7 @@ public class ViewDoctorScreen extends javax.swing.JFrame {
 
                     // click detected
                     int index = list.locationToIndex(evt.getPoint());
-                    
+
                     populateFeedback(index);
                 }
             }
@@ -66,17 +66,19 @@ public class ViewDoctorScreen extends javax.swing.JFrame {
         lstFeedback.setModel(feedbackModel);
 
         ArrayList<DoctorFeedback> feedbackArray = doctor.getFeedback();
-
-        for (int i = 0; i < feedbackArray.size(); i++) {
-            DoctorFeedback feedback = feedbackArray.get(i);
-            feedbackModel.addElement(feedback.getTitle());
+        if (!feedbackArray.isEmpty()) {
+            for (int i = 0; i < feedbackArray.size(); i++) {
+                DoctorFeedback feedback = feedbackArray.get(i);
+                feedbackModel.addElement(feedback.getTitle());
+            }
         }
+
     }
 
     private void populateFeedback(int selectedFeedback) {
         ArrayList<DoctorFeedback> feedbackArray = doctor.getFeedback();
         DoctorFeedback feedback = feedbackArray.get(selectedFeedback);
-        
+
         lblFeedback.setText(feedback.getFeedbackNotes());
         lblRating.setText(Integer.toHexString(feedback.getRating()));
 
